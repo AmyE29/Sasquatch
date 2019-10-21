@@ -46,12 +46,10 @@ var treeChoices = new OptionsConst( treeOption1, treeOption2, treeOption3, treeO
 var streamChoices = new OptionsConst( streamOption1, streamOption2, streamOption3, streamOption4);
 var tripChoices = new OptionsConst( tripOption1, tripOption2, tripOption3, tripOption4);
 
-
 // make 5 cards
 var berries = new Card ('berries', berriesCardPrompt, berriesChoices);
 var snakes = new Card ('snakes', snakesCardPrompt, snakesChoices);
 var tree = new Card ('tree', treeCardPrompt, treeChoices);
 var stream = new Card ('stream', streamCardPrompt, streamChoices);
 var trip = new Card ('trip', tripCardPrompt, tripChoices);
-
 
