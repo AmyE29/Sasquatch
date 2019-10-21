@@ -11,4 +11,5 @@
 var berriesCardPrompt = 'You come across some berries...';
 var berriesOption1 = 'You pass them up. It\'s not worth the risk';
 var berriesOption2 = 'You eat them.';
+var berriesOption3 = ''
 //etc....

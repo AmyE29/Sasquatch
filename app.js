@@ -8,20 +8,22 @@
 
 //USER NAME (stored in a variable to be stringified for localStorage)
 
-//RESULT VALUES (gives the score number increase)
-var resultValues = [32, 23, 15, 8];
+//RESULT VALUES (gives the score number increase)(percentages 32%, 23%, 15%, 8%)
+var resultValues = [1600, 1150, 750, 400];
 //BIGFOOT'S LOCATION VALUE (this stores bigfoots location)
-
-//PLAYER'S LOCATION VALUE (this stores player's location)
-
+var bigfootLocation = 0;
+//PLAYER'S LOCATION VALUE (this stores player's location)(15% of 5000)
+var playerLocation = 750;
 //RESULT RETURN STATEMENTS (gives the corresponding script statement for the score number increase)
 //((MVP)These are generic global return statements for every card)
-var returnStatements = [];
+var returnStatements = ['Great choice! You jump ahead 320 feet!', '', '', ''];
 //ALL CARDS ARRAY (all card objects are stored in here)
 
 //UNIQUE CARDS ARRAY (At the start, stores randomly selected cards from allCardsArray, in this array for use during game)
-
+//but we also dont want repeats.
+var uniqueCardsArray = [(allcardsarray[randomnumbergenerator], )]
 //MAP NUMBER OF CLICKS (way to control the movement of bigfoot - AFTER the player moves)
+//(DONT THINK WE WILL NEED THIS)
 
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
 
@@ -38,12 +40,11 @@ var returnStatements = [];
 //////////////////////////////////////////////////////////////////////////////
 
 //#1 CARD CONSTRUCTOR/////////////////////////////////////////////////////////
-//(this takes in a few parameters: name, situation detail(1script), options(4 scripts) stored in an array, (stretchGoal)filePathOfImage)
+//(this takes in a few parameters: name, PROMPT detail(1script), options(4 scripts) stored in an array, (stretchGoal)filePathOfImage)
 
 
 //#2 CARD OPTIONS CONSTRUCTOR/////////////////////////////////////////////////
 //(this takes in variables from cardOptions.js as scripts, stores them into a unique options array by card)(the resulting options array object from this constructor, is entered into the card constructor as the options parameter)
-
 
 //(STRETCH)#3 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
 //(this would replace our global return statements)
@@ -60,13 +61,13 @@ var returnStatements = [];
 //////////////////////////////////////////////////////////////////////////////
 
 //RANDOM NUMBER GENERATOR/////////////////////////////////////////////////////
-//(used to decide order of cards at start of game)
+//(used to decide order of cards at start of game)(min of 0 max of 3)
 
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
 
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
-//(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
+//(this creates a card div, creates p tags, assigns p tags ID(for event listener to tell when user clicks) AND fills those p tags with the information from a card object)
 
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
@@ -100,6 +101,7 @@ var returnStatements = [];
 
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
+
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
 
