@@ -38,3 +38,4 @@ var tripOption1 = 'Pick yourself up and keep running?';
 var tripOption2 =  'Rest and bit, and massage it?';
 var tripOption3 =  'Rub some dirt on it?';
 var tripOption4 = 'Lay down and cry?';
+
