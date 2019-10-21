@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 //////////////////////////////////////////////////////////////////////////////
@@ -11,18 +12,15 @@
 var berriesCardPrompt = 'You come across some berries.  Do you?';
 var berriesOption1 = 'Eat them';
 var berriesOption2 =  'Throw them at Big Foot to slow him down';
-var  berriesOption3 =  'Avoid them, they might be poisonous';
+var berriesOption3 =  'Avoid them, they might be poisonous';
 var berriesOption4 = 'Collect them to make a pie later';
 
-var snakesCardPrompt =
+var snakesCardPrompt = 'Oh no! Snakes on the trail.  Do you?';
 
 
-var treeCardPrompt = 'You are blocked by a fallen tree.  Do you?'
+var treeCardPrompt = 'You are blocked by a fallen tree.  Do you?';
 
 
-var streamCardPrompt = 
+// eslint-disable-next-line no-unused-vars
+var streamCardPrompt = 'You have come to a stream.  Do you?';
 
-
-//etc....
-
- 

@@ -7,29 +7,29 @@
 //////////////////////////////////////////////////////////////////////////////
 
 //USER NAME (stored in a variable to be stringified for localStorage)
-
-//RESULT VALUES (gives the score number increase)
-var resultValues = [32, 23, 15, 8];
+var userName = [];
+//RESULT VALUES (gives the score number increase 32%, 23%, 15%, 8% of 5000)
+var resultValues = [1600, 1150, 750, 400];
 //BIGFOOT'S LOCATION VALUE (this stores bigfoots location)
-
-//PLAYER'S LOCATION VALUE (this stores player's location)
-
+var bigfootLocation = 0;
+//PLAYER'S LOCATION VALUE (this stores player's location 15% of 5000)
+var playerLocation = 750;
 //RESULT RETURN STATEMENTS (gives the corresponding script statement for the score number increase)
 //((MVP)These are generic global return statements for every card)
-var returnStatements = [];
+var returnStatements = ['Great Choice! You bound ahead 1600 feet!', 'Nice choice, you move ahead by 1150 feet!', 'Not bad, but Big Foot is gaining on you', 'Oh no! You are losing a lot of ground'];
 //ALL CARDS ARRAY (all card objects are stored in here)
-
+var allCardsArray = [];
 //UNIQUE CARDS ARRAY (At the start, stores randomly selected cards from allCardsArray, in this array for use during game)
-
+var uniqueCardsArray = [];
 //MAP NUMBER OF CLICKS (way to control the movement of bigfoot - AFTER the player moves)
+// NOT SURE IF WE NEED THIS
 
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
-
+var firstCardObject = [];
 //WIN OBJECT (if player wins, the final card will get its information from this object)
-
-//LOSS OBJECT (if player loses, the final card will get its information from this object)
-
-
+var winCardObject = [];
+//LOSS OBJECT (if player loses, the final card will get its information from this object)va
+var lossCardObject = [];
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -39,10 +39,17 @@ var returnStatements = [];
 
 //#1 CARD CONSTRUCTOR/////////////////////////////////////////////////////////
 //(this takes in a few parameters: name, situation detail(1script), options(4 scripts) stored in an array, (stretchGoal)filePathOfImage)
-
+function Card(name, prompt, options) {
+  this.name = name;
+  this.prompt = prompt;
+  this.options = options;
+}
 
 //#2 CARD OPTIONS CONSTRUCTOR/////////////////////////////////////////////////
 //(this takes in variables from cardOptions.js as scripts, stores them into a unique options array by card)(the resulting options array object from this constructor, is entered into the card constructor as the options parameter)
+function OptionsConst(opt1, opt2, opt3, opt4) {
+  this.options = [opt1, opt2, opt3, opt4];
+}
 
 
 //(STRETCH)#3 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
@@ -61,12 +68,46 @@ var returnStatements = [];
 
 //RANDOM NUMBER GENERATOR/////////////////////////////////////////////////////
 //(used to decide order of cards at start of game)
-
+var makeRandom = function(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random()*(max - min + 1)) + min;
+};
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
-
+var renderMap = function() {
+  var cvs = document.createElement('canvas');
+  //   cvs.setAttribute('style', 'background-color: black');
+  var cvsAttach = document.getElementById('main-screen');
+  cvsAttach.appendChild(cvs);
+  var bgPlayer = new Image();
+  var bgBigfoot = new Image();
+  bgPlayer.src = 'image url here';
+  bgBigfoot.src = 'image url here';
+};
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
+var renderCardDiv = function(){
+  var cardAttach = document.getElementById('queston-cards');
+  var cardDiv =document.createElement('div');
+  cardAttach.appendChild(cardDiv);
+//   created prompt paragraph on card
+  var cardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(cardPromptParagraph);
+
+  var questionDiv = document.createElement('div');
+  cardDiv.appendChild(questionDiv);
+
+  var temp = uniqueCardsArray.shift();
+
+  for (var i= 0; i < 3; i ++) {
+    var optionFiller = temp.options[i];
+    var newPTag = document.createElement('p');
+    questionDiv.appendChild(newPTag);
+    newPTag.textContent = optionFiller;
+  }
+};
+
 
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
