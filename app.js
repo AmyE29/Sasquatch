@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 'use strict';
 
 //////////////////////////////////////////////////////////////////////////////
@@ -51,7 +52,6 @@ function OptionsConst(opt1, opt2, opt3, opt4) {
   this.options = [opt1, opt2, opt3, opt4];
 }
 
-
 //(STRETCH)#3 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
 //(this would replace our global return statements)
 //(this will create unique return options for each unique selection)(and store the unique responses into each card object instead of having a GLOBAL return statement array)
@@ -91,7 +91,7 @@ var renderCardDiv = function(){
   var cardAttach = document.getElementById('queston-cards');
   var cardDiv =document.createElement('div');
   cardAttach.appendChild(cardDiv);
-//   created prompt paragraph on card
+  //   created prompt paragraph on card
   var cardPromptParagraph = document.createElement('p');
   cardDiv.appendChild(cardPromptParagraph);
 
@@ -141,6 +141,7 @@ var renderCardDiv = function(){
 
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
+
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
 
