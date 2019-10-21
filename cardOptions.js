@@ -38,3 +38,20 @@ var tripOption1 = 'Pick yourself up and keep running?';
 var tripOption2 =  'Rest and bit, and massage it?';
 var tripOption3 =  'Rub some dirt on it?';
 var tripOption4 = 'Lay down and cry?';
+
+// make 5 object functions using above options
+var berriesChoices = new OptionsConst( berriesOption1, berriesOption2, berriesOption3, berriesOption4);
+var snakesChoices = new OptionsConst( snakesOption1, snakesOption2, snakesOption3, snakesOption4);
+var treeChoices = new OptionsConst( treeOption1, treeOption2, treeOption3, treeOption4);
+var streamChoices = new OptionsConst( streamOption1, streamOption2, streamOption3, streamOption4);
+var tripChoices = new OptionsConst( tripOption1, tripOption2, tripOption3, tripOption4);
+
+
+// make 5 cards
+var berries = new Card ('berries', berriesCardPrompt, berriesChoices);
+var snakes = new Card ('snakes', snakesCardPrompt, snakesChoices);
+var tree = new Card ('tree', treeCardPrompt, treeChoices);
+var stream = new Card ('stream', streamCardPrompt, streamChoices);
+var trip = new Card ('trip', tripCardPrompt, tripChoices);
+
+
