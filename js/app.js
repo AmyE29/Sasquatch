@@ -30,7 +30,8 @@ var cardAttach = document.getElementById('question-cards');
 //TARGET THE CARD ON THE PAGE FOR REMOVAL (when the cards are created, they are created with card-popup ID. this targets them to be removed later)
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
-var firstCardObject = [];
+// var firstCardObject = [];
+var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril' ;
 //PLAYER SCORE (adds up the player's score throughout the game. to be stored into local storage later)
 var playerScore = 0;
 //WIN OBJECT (if player wins, the final card will get its information from this object)
@@ -129,11 +130,6 @@ var renderMap = function() {
   playerScoreboard.setAttribute('id', 'player-scoreboard');
   scoreboard.appendChild(playerScoreboard);
   playerScoreboard.textContent = `SCORE: ${playerScore}`;
-  //here will be our bigfoot and player images
-  var bgPlayer = new Image();
-  var bgBigfoot = new Image();
-  bgPlayer.src = 'image url here';
-  bgBigfoot.src = 'image url here';
   //this hides the footer row
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
@@ -181,12 +177,12 @@ var renderCardDiv = function(){
 var renderFirstCardDiv = function(){
   var cardAttach = document.getElementById('question-cards');
   var cardDiv = document.createElement('div');
-  cardDiv.setAttribute('id', 'card-popup');
+  cardDiv.setAttribute('id', 'firstCard');
   cardAttach.appendChild(cardDiv);
   //   created prompt paragraph on card
-  var cardPromptParagraph = document.createElement('p');
-  cardDiv.appendChild(cardPromptParagraph);
-  cardPromptParagraph.textContent = firstCardObject.prompt;
+  var firstCardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(firstCardPromptParagraph);
+  firstCardPromptParagraph.textContent = firstCard;
 };
 //////////////////////////////////////////////////////////////////////////////
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
@@ -325,8 +321,8 @@ function handleSubmit(){
     fieldsetRemove.remove();
     //creates map
     renderMap();
-    setTimeout(renderCardDiv, 4000);
-    setTimeout(makeCardClickWork, 4200);
+    // setTimeout(renderFirstCardDiv, 4000);
+    // setTimeout(makeClickFirstCardWork, 4200);
   }
 }
 
@@ -397,6 +393,6 @@ function lossCondition(){
 // }
 
 
-setTimeout(randomizeAllCards, 500);
+randomizeAllCards();
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
