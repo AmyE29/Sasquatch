@@ -1,4 +1,24 @@
+.background {
+    background-image: url('https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/background.png');
+    width: 1024px;
+    height: 576px;
+  }
+  
+  #bigfoot {
+    transition: transform 0.3s linear;
+    transform: initial;
+    position: absolute;
+    height: 100px;
+  }
+  
+  #hiker {
+    transition: transform 0.3s linear;
+    transform: initial;
+    height: 80px;
+    position: absolute;
+  }
 
+/* 
 html, body {
     background-image: url(../images/background.jpg);
     
@@ -7,9 +27,8 @@ html, body {
     height: 120%;
     margin: 0;
     padding: 0;
-    /* background-color: rgb(1, 63, 1);
-    border-color: rgb(1, 77, 1); */
-    
+    background-color: rgb(1, 63, 1);
+    border-color: rgb(1, 77, 1);
 }
 
 fieldset {
@@ -88,7 +107,7 @@ fieldset {
 left: 10in;
 top: 2in;
 /* position: absolute; */
-font-size: 22pt;
+/* font-size: 22pt;
 }
 
 input {
@@ -130,4 +149,4 @@ h1 {
     color: rgb(199, 233, 199);
 
 
-}
+} */
