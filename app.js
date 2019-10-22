@@ -18,7 +18,7 @@ var playerLocation = 750;
 //RESULT RETURN STATEMENTS (gives the corresponding script statement for the score number increase)
 //((MVP)These are generic global return statements for every card)
 var returnStatements = ['Great Choice! You bound ahead 1600 feet!', 'Nice choice, you move ahead by 1150 feet!', 'Not bad, but Big Foot is gaining on you', 'Oh no! You are losing a lot of ground'];
-//ALL CARDS ARRAY (all card objects are stored in here)
+//ALL CARDS ARRAY (all card objects are stored in here -- from card constructor)
 var allCardsArray = [];
 //UNIQUE CARDS ARRAY (At the start, stores randomly selected cards from allCardsArray, in this array for use during game)
 var uniqueCardsArray = [];
@@ -50,6 +50,7 @@ function Card(name, prompt, options) {
   this.name = name;
   this.prompt = prompt;
   this.options = options;
+  allCardsArray.push(this);
 }
 
 //#2 CARD OPTIONS CONSTRUCTOR/////////////////////////////////////////////////
@@ -153,6 +154,7 @@ var renderResultCardDiv = function(){
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
+var gameCanvas = document.getElementById('mapCanvas');
 if(playerLocation >= 5000){
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
@@ -162,13 +164,13 @@ if(playerLocation >= 5000){
 
   var playAgainButton = document.createElement('button');
   mapAttach.appendChild(playAgainButton);
+  playAgainButton.textContent = 'PLAY AGAIN';
 
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: block');
 }
 if(bigfootLocation >= playerLocation){
-  var
-
+  gameCanvas.remove();
 }
 //LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
 //(this sets "if bigfoot location >= user location" then "run loser function")
@@ -178,7 +180,17 @@ if(bigfootLocation >= playerLocation){
 //(say you have 5 cards)(this picks a random number between 0 and 4)(the temp result is used, as the index of allCardsArray, to push that card into uniqueCardsArray)
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
 //(it loops on untill all 5 cards are moved into unique array in a random order)
-
+var uniqueNumberArray = [];
+var randomizeAllCards = function(){
+  var uniqueRandomNumber = makeRandom(0,3);
+  while(uniqueNumberArray.length < 4){
+    if(!uniqueNumberArray.includes(uniqueRandomNumber)){
+      uniqueNumberArray.push(uniqueRandomNumber);
+    } else {
+      uniqueRandomNumber = makeRandom(0,3);
+    }
+  }
+};
 
 
 //////////////////////////////////////////////////////////////////////////////

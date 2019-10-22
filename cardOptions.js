@@ -46,7 +46,7 @@ var treeChoices = new OptionsConst( treeOption1, treeOption2, treeOption3, treeO
 var streamChoices = new OptionsConst( streamOption1, streamOption2, streamOption3, streamOption4);
 var tripChoices = new OptionsConst( tripOption1, tripOption2, tripOption3, tripOption4);
 
-// make 5 cards
+// make 5 cards && store them in allCardsArray
 var berries = new Card ('berries', berriesCardPrompt, berriesChoices);
 var snakes = new Card ('snakes', snakesCardPrompt, snakesChoices);
 var tree = new Card ('tree', treeCardPrompt, treeChoices);
