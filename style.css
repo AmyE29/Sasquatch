@@ -1,0 +1,47 @@
+fieldset {
+    display: block;
+    background-color: rgb(4, 83, 8);
+left: 10in;
+top: 2in;
+/* position: absolute; */
+font-size: 22pt;
+}
+
+input {
+    display: block;
+    font-size: 20pt;
+
+}
+
+button {
+    display: block;
+    font-size: 20pt;
+    margin-left: 1in ;
+}
+
+body {
+    background-color: rgb(1, 63, 1);
+    border-color: rgb(1, 77, 1);
+}
+
+a:nth-child(1) {
+    
+    margin-left: 0%;
+    color: white;
+    font-size: 40pt;
+    font-family: 'Rock Salt', cursive;
+}
+a:nth-child(2) {
+    margin-left: 66%;
+    color: white;
+    font-size: 40pt;
+    font-family: 'Rock Salt', cursive;
+
+}
+
+h1 {
+    margin-left: 35%;
+    font-family: 'Rock Salt', cursive;
+    font-size: 40pt;
+    color: rgb(199, 233, 199);
+}
