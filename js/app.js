@@ -26,11 +26,12 @@ var uniqueCardsArray = [];
 // NOT SURE IF WE NEED THIS
 
 //PLACE TO ATTACH CARDS ON THE PAGE (this is the variable that the card boxes will be appended to. and then removed from)
-var cardAttach = document.getElementById('question-cards');
+// var cardAttach = document.getElementById('mapCanvas');
 //TARGET THE CARD ON THE PAGE FOR REMOVAL (when the cards are created, they are created with card-popup ID. this targets them to be removed later)
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
-var firstCardObject = [];
+// var firstCardObject = [];
+var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril' ;
 //PLAYER SCORE (adds up the player's score throughout the game. to be stored into local storage later)
 var playerScore = 0;
 //WIN OBJECT (if player wins, the final card will get its information from this object)
@@ -94,14 +95,30 @@ var makeRandom = function(min, max) {
 var renderMap = function() {
 //creates a div that will store the map in the middle of the 'main-screen'
   var mapLocation = document.createElement('div');
+  mapLocation.setAttribute('style', 'position: relative');
+  mapLocation.setAttribute('id', 'mapCanvas');
   var cvsAttach = document.getElementById('main-screen');
   cvsAttach.appendChild(mapLocation);  
   //creates the canvas and appends it inside of the maplocation div
-  var cvs = document.createElement('canvas');
-  cvs.setAttribute('id', 'mapCanvas');
+  var cvs = document.createElement('div');
+  cvs.setAttribute('class', 'background');
   mapLocation.appendChild(cvs);
+  //create figure images
+  var bigfootImage = document.createElement('img');
+  bigfootImage.setAttribute('id', 'bigfoot');
+  bigfootImage.setAttribute('class', 'character');
+  bigfootImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/bigfoot.png');
+  cvs.appendChild(bigfootImage);
+
+  var playerImage = document.createElement('img');
+  playerImage.setAttribute('id', 'hiker');
+  playerImage.setAttribute('class', 'character');
+  playerImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/hiker.gif');
+  cvs.appendChild(playerImage);
+
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
+  scoreboard.setAttribute('id', 'scoreboard-ID')
   mapLocation.appendChild(scoreboard);
   //distance from bigfoot
   var distanceScore = document.createElement('p');
@@ -115,11 +132,6 @@ var renderMap = function() {
   playerScoreboard.setAttribute('id', 'player-scoreboard');
   scoreboard.appendChild(playerScoreboard);
   playerScoreboard.textContent = `SCORE: ${playerScore}`;
-  //here will be our bigfoot and player images
-  var bgPlayer = new Image();
-  var bgBigfoot = new Image();
-  bgPlayer.src = 'image url here';
-  bgBigfoot.src = 'image url here';
   //this hides the footer row
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
@@ -133,7 +145,7 @@ var updateScoreboard = function(){
   var distUpdate = document.getElementById('distance-score');
   distUpdate.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
   //updates player score
-  var scoreUpdate = document.getElementById('id', 'player-scoreboard');
+  var scoreUpdate = document.getElementById('player-scoreboard');
   scoreUpdate.textContent = `SCORE: ${playerScore}`;
 };
 
@@ -141,7 +153,7 @@ var updateScoreboard = function(){
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
 var renderCardDiv = function(){
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var temp = uniqueCardsArray.shift();
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'card-popup');
@@ -157,6 +169,7 @@ var renderCardDiv = function(){
 
   for (var i= 0; i < 4; i ++) {
     var newPTag = document.createElement('p');
+    newPTag.setAttribute('class', 'ptag-options');
     questionDiv.appendChild(newPTag);
     newPTag.textContent = temp.options.options[i];
   }
@@ -165,14 +178,14 @@ var renderCardDiv = function(){
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
 var renderFirstCardDiv = function(){
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
-  cardDiv.setAttribute('id', 'card-popup');
+  cardDiv.setAttribute('id', 'firstCard');
   cardAttach.appendChild(cardDiv);
   //   created prompt paragraph on card
-  var cardPromptParagraph = document.createElement('p');
-  cardDiv.appendChild(cardPromptParagraph);
-  cardPromptParagraph.textContent = firstCardObject.prompt;
+  var firstCardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(firstCardPromptParagraph);
+  firstCardPromptParagraph.textContent = firstCard;
 };
 //////////////////////////////////////////////////////////////////////////////
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
@@ -181,7 +194,7 @@ var renderFirstCardDiv = function(){
 var renderResultCardDiv = function(){
   var removePopupDiv = document.getElementById('card-popup');
   removePopupDiv.remove();
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'card-popup');
   cardAttach.appendChild(cardDiv);
@@ -256,11 +269,12 @@ var randomizeAllCards = function(){
       uniqueRandomNumber = makeRandom(0,4);
     }
   }
+};
+function fillUniqueCardsArray(){
   for(var i = 0; i < uniqueNumberArray.length; i++){
     uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
-};
-
+}
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////~~~EVENT LISTENERS~~~///////////////////////////////////////////////
@@ -280,11 +294,12 @@ function makeClickFirstCardWork(){
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.addEventListener('click', handleFirstClick);
 }
+
 //#3
-function makeMapClickWork(){
-  var theMap = document.getElementById('mapCanvas');
-  theMap.addEventListener('click', handleMapClick);
-}
+// function makeMapClickWork(){
+//   var theMap = document.getElementById('mapCanvas');
+//   theMap.addEventListener('click', handleMapClick);
+// }
 //#4
 function makeCardClickWork(){
   var theCard = document.getElementById('question-div');
@@ -311,8 +326,8 @@ function handleSubmit(){
     fieldsetRemove.remove();
     //creates map
     renderMap();
-    setTimeout(renderCardDiv, 4000);
-    setTimeout(makeCardClickWork, 4200);
+    setTimeout(renderFirstCardDiv, 2000);
+    setTimeout(makeClickFirstCardWork, 4200);
   }
 }
 
@@ -320,34 +335,43 @@ function handleSubmit(){
 //(when user clicks the first card, it removes first card, shows map)
 function handleFirstClick(){
   event.preventDefault();
+  var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
-  makeMapClickWork();
+  setTimeout(renderCardDiv, 2000);
+  setTimeout(makeCardClickWork, 2500);
+  // makeMapClickWork();
 }
-
+var theMap = document.getElementById('mapCanvas');
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
-function handleMapClick(){
-  theMap.removeEventListener();
-  setTimeout(renderCardDiv, 1000);
-  makeCardClickWork();
-}
+// function handleMapClick(){
+//   var theMap = document.getElementById('mapCanvas');
+//   theMap.removeEventListener('click', handleMapClick);
+//   setTimeout(renderCardDiv, 500);
+//   setTimeout(makeCardClickWork, 1500);
+// }
 //#4 CLICK CARD ANSWER, RENDERS RESULT CARD///////////////////////////////////
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
 function handleCardClick(){
   setTimeout(renderResultCardDiv, 500);
-  theCard.removeEventListener();
-  makeResultClickWork();
+  var theCard = document.getElementById('question-div');
+  theCard.removeEventListener('click', handleCardClick);
+  setTimeout(makeResultClickWork, 1000);
 }
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
 function handleResultClick(){
   setTimeout(function(){var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove();}, 500);
-  theResult.removeEventListener();
+  var theResult = document.getElementById('card-popup');
+  theResult.removeEventListener('click', handleResultClick);
   //map event listener is working again(after some time to let figures move and check if conditions)
-  setTimeout(makeMapClickWork, 6000);
+  // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
+  setTimeout(updateScoreboard, 500);
   setTimeout(winCondition, 3000);
   setTimeout(lossCondition, 3100);
+  setTimeout(renderCardDiv, 6000);
+  setTimeout(makeCardClickWork, 6500);
 }
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
@@ -371,17 +395,18 @@ function lossCondition(){
 //STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-var grabData = localStorage.getItem('leaderboard');
-var dataParsed = JSON.parse(grabData);
-while(dataParsed.length > 10){
-    dataParsed.sort((a,b)=>{return a-b});
-    dataParsed.shift();
+// var grabData = localStorage.getItem('leaderboard');
+// var dataParsed = JSON.parse(grabData);
+// while(dataParsed.length > 10){
+//     dataParsed.sort((a,b)=>{return a-b});
+//     dataParsed.shift();
+// }
 // for(var i = 0; i < dataParsed.length; i++){
 //   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
 // }
 
 
-
-setTimeout(randomizeAllCards, 500);
+randomizeAllCards();
+setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
