@@ -255,7 +255,25 @@ var randomizeAllCards = function(){
 
 //#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
 //(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
+var why = document.getElementById('user-form');
+// onSubmit.addEventListener('click', handleSubmit);
 
+function handleSubmit(){
+  event.preventDefault();
+  //checks if the user entered something for their player's name. stores name in userName.
+  if(event.target.user-name.value === null){
+    alert('Invalid Entry. Please enter your player name.');
+    return;
+  } else {
+    userName.push(event.target.user-name.value);
+    //removes fieldset
+    var fieldsetRemove = document.getElementById('playnow-fieldset');
+    fieldsetRemove.remove();
+    //creates map
+    renderMap();
+    setTimeout(console.log('yay!!!'), 5000);
+  }
+};
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
 
