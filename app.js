@@ -255,23 +255,25 @@ var randomizeAllCards = function(){
 
 //#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
 //(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
-var why = document.getElementById('user-form');
-// onSubmit.addEventListener('click', handleSubmit);
+function makeOnSubmitWork(){
+  var onSubmit = document.getElementById('user-form');
+  onSubmit.addEventListener('submit', handleSubmit);
+}
 
 function handleSubmit(){
   event.preventDefault();
   //checks if the user entered something for their player's name. stores name in userName.
-  if(event.target.user-name.value === null){
+  if(event.target.playerName.value === ''){
     alert('Invalid Entry. Please enter your player name.');
     return;
   } else {
-    userName.push(event.target.user-name.value);
+    userName.push(event.target.playerName.value);
     //removes fieldset
-    var fieldsetRemove = document.getElementById('playnow-fieldset');
+    var fieldsetRemove = document.getElementById('user-form');
     fieldsetRemove.remove();
     //creates map
     renderMap();
-    setTimeout(console.log('yay!!!'), 5000);
+    setTimeout(renderCardDiv, 4000);
   }
 };
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
