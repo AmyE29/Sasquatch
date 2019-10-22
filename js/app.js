@@ -209,6 +209,8 @@ var renderResultCardDiv = function(){
   cardDiv.appendChild(resultingScoreParagraph);
   resultingScoreParagraph.textContent = `+ ${randomResultValue} points`;
   playerScore += randomResultValue;
+  playerLocation += randomResultValue;
+  bigfootLocation += 1000;
 };
 
 //RENDER WINNER FUNCTION/////////////////////////////////////////////////////
@@ -368,8 +370,8 @@ function handleResultClick(){
   // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
   setTimeout(updateScoreboard, 500);
-  setTimeout(winCondition, 3000);
-  setTimeout(lossCondition, 3100);
+  setTimeout(winCondition, 5000);
+  setTimeout(lossCondition, 5100);
   setTimeout(renderCardDiv, 6000);
   setTimeout(makeCardClickWork, 6500);
 }
@@ -404,6 +406,8 @@ function lossCondition(){
 // for(var i = 0; i < dataParsed.length; i++){
 //   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
 // }
+
+//MOVING OUR FIGURES//////////////////////////////////////////////////////////
 
 
 randomizeAllCards();
