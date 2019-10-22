@@ -26,7 +26,7 @@ var uniqueCardsArray = [];
 // NOT SURE IF WE NEED THIS
 
 //PLACE TO ATTACH CARDS ON THE PAGE (this is the variable that the card boxes will be appended to. and then removed from)
-var cardAttach = document.getElementById('question-cards');
+var cardAttach = document.getElementById('mapCanvas');
 //TARGET THE CARD ON THE PAGE FOR REMOVAL (when the cards are created, they are created with card-popup ID. this targets them to be removed later)
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
@@ -101,6 +101,7 @@ var renderMap = function() {
   //creates the canvas and appends it inside of the maplocation div
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
+  cvs.setAttribute('id', 'mapCanvas');
   mapLocation.appendChild(cvs);
   //create figure images
   var bigfootImage = document.createElement('img');
@@ -151,7 +152,7 @@ var updateScoreboard = function(){
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
 var renderCardDiv = function(){
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var temp = uniqueCardsArray.shift();
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'card-popup');
@@ -175,7 +176,7 @@ var renderCardDiv = function(){
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
 var renderFirstCardDiv = function(){
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'firstCard');
   cardAttach.appendChild(cardDiv);
@@ -191,7 +192,7 @@ var renderFirstCardDiv = function(){
 var renderResultCardDiv = function(){
   var removePopupDiv = document.getElementById('card-popup');
   removePopupDiv.remove();
-  var cardAttach = document.getElementById('question-cards');
+  var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'card-popup');
   cardAttach.appendChild(cardDiv);
@@ -266,11 +267,12 @@ var randomizeAllCards = function(){
       uniqueRandomNumber = makeRandom(0,4);
     }
   }
+};
+function fillUniqueCardsArray(){
   for(var i = 0; i < uniqueNumberArray.length; i++){
     uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
-};
-
+}
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////~~~EVENT LISTENERS~~~///////////////////////////////////////////////
@@ -290,11 +292,12 @@ function makeClickFirstCardWork(){
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.addEventListener('click', handleFirstClick);
 }
+
 //#3
-function makeMapClickWork(){
-  var theMap = document.getElementById('mapCanvas');
-  theMap.addEventListener('click', handleMapClick);
-}
+// function makeMapClickWork(){
+//   var theMap = document.getElementById('mapCanvas');
+//   theMap.addEventListener('click', handleMapClick);
+// }
 //#4
 function makeCardClickWork(){
   var theCard = document.getElementById('question-div');
@@ -321,8 +324,8 @@ function handleSubmit(){
     fieldsetRemove.remove();
     //creates map
     renderMap();
-    // setTimeout(renderFirstCardDiv, 4000);
-    // setTimeout(makeClickFirstCardWork, 4200);
+    setTimeout(renderFirstCardDiv, 2000);
+    setTimeout(makeClickFirstCardWork, 4200);
   }
 }
 
@@ -330,35 +333,42 @@ function handleSubmit(){
 //(when user clicks the first card, it removes first card, shows map)
 function handleFirstClick(){
   event.preventDefault();
+  var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
-  makeMapClickWork();
+  setTimeout(renderCardDiv, 2000);
+  setTimeout(makeCardClickWork, 2500);
+  // makeMapClickWork();
 }
-
+var theMap = document.getElementById('mapCanvas');
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
-function handleMapClick(){
-  theMap.removeEventListener();
-  setTimeout(renderCardDiv, 1000);
-  makeCardClickWork();
-}
+// function handleMapClick(){
+//   var theMap = document.getElementById('mapCanvas');
+//   theMap.removeEventListener('click', handleMapClick);
+//   setTimeout(renderCardDiv, 500);
+//   setTimeout(makeCardClickWork, 1500);
+// }
 //#4 CLICK CARD ANSWER, RENDERS RESULT CARD///////////////////////////////////
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
 function handleCardClick(){
   setTimeout(renderResultCardDiv, 500);
   var theCard = document.getElementById('question-div');
-  theCard.removeEventListener();
-  makeResultClickWork();
+  theCard.removeEventListener('click', handleCardClick);
+  setTimeout(makeResultClickWork, 1000);
 }
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
 function handleResultClick(){
   setTimeout(function(){var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove();}, 500);
-  theResult.removeEventListener();
+  var theResult = document.getElementById('card-popup');
+  theResult.removeEventListener('click', handleResultClick);
   //map event listener is working again(after some time to let figures move and check if conditions)
-  setTimeout(makeMapClickWork, 6000);
+  // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
   setTimeout(winCondition, 3000);
   setTimeout(lossCondition, 3100);
+  setTimeout(renderCardDiv, 6000);
+  setTimeout(makeCardClickWork, 6500);
 }
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
@@ -394,5 +404,6 @@ function lossCondition(){
 
 
 randomizeAllCards();
+setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
