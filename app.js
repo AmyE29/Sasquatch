@@ -25,12 +25,18 @@ var uniqueCardsArray = [];
 //MAP NUMBER OF CLICKS (way to control the movement of bigfoot - AFTER the player moves)
 // NOT SURE IF WE NEED THIS
 
+//PLACE TO ATTACH CARDS ON THE PAGE (this is the variable that the card boxes will be appended to. and then removed from)
+var cardAttach = document.getElementById('question-cards');
+//TARGET THE CARD ON THE PAGE FOR REMOVAL (when the cards are created, they are created with card-popup ID. this targets them to be removed later)
+var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
 var firstCardObject = [];
+//PLAYER SCORE (adds up the player's score throughout the game. to be stored into local storage later)
+var playerScore = 0;
 //WIN OBJECT (if player wins, the final card will get its information from this object)
-var winCardObject = [];
+// var winCardObject = [];
 //LOSS OBJECT (if player loses, the final card will get its information from this object)va
-var lossCardObject = [];
+// var lossCardObject = [];
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -77,48 +83,93 @@ var makeRandom = function(min, max) {
 //(this creates the map, canvas, images, divs, etc. appends children)
 var renderMap = function() {
   var cvs = document.createElement('canvas');
-  //   cvs.setAttribute('style', 'background-color: black');
+  cvs.setAttribute('id', 'mapCanvas');
   var cvsAttach = document.getElementById('main-screen');
   cvsAttach.appendChild(cvs);
   var bgPlayer = new Image();
   var bgBigfoot = new Image();
   bgPlayer.src = 'image url here';
   bgBigfoot.src = 'image url here';
+  var showFooter = document.getElementById('footerRow');
+  showFooter.setAttribute('style', 'display: none');
 };
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
 var renderCardDiv = function(){
-  var cardAttach = document.getElementById('queston-cards');
-  var cardDiv =document.createElement('div');
+  var cardAttach = document.getElementById('question-cards');
+  var temp = uniqueCardsArray.shift();
+  var cardDiv = document.createElement('div');
+  cardDiv.setAttribute('id', 'card-popup');
   cardAttach.appendChild(cardDiv);
   //   created prompt paragraph on card
   var cardPromptParagraph = document.createElement('p');
   cardDiv.appendChild(cardPromptParagraph);
+  cardPromptParagraph.textContent(temp.prompt);
 
   var questionDiv = document.createElement('div');
   cardDiv.appendChild(questionDiv);
 
-  var temp = uniqueCardsArray.shift();
-
   for (var i= 0; i < 3; i ++) {
-    var optionFiller = temp.options[i];
     var newPTag = document.createElement('p');
     questionDiv.appendChild(newPTag);
-    newPTag.textContent = optionFiller;
+    newPTag.textContent = temp.options[i];
   }
 };
 
-
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
+var renderFirstCardDiv = function(){
+  var cardAttach = document.getElementById('question-cards');
+  var cardDiv = document.createElement('div');
+  cardDiv.setAttribute('id', 'card-popup');
+  cardAttach.appendChild(cardDiv);
+  //   created prompt paragraph on card
+  var cardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(cardPromptParagraph);
+  cardPromptParagraph.textContent = firstCardObject.prompt;
+};
 
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
 //(this creates the result card)(appends score from chosen answer)(appends corresponding resultStatement (global))
-
+//(needs the score from event listener)
+var renderResultCardDiv = function(){
+  removePopupDiv.remove();
+  var cardAttach = document.getElementById('question-cards');
+  var cardDiv = document.createElement('div');
+  cardDiv.setAttribute('id', 'card-popup');
+  cardAttach.appendChild(cardDiv);
+  var randomResult = makeRandom(0,3);
+  var randomResultValue = resultValues[randomResult];
+  //creates p tag and displays returnStatement from array
+  var cardResultParagraph = document.createElement('p');
+  cardDiv.appendChild(cardResultParagraph);
+  cardResultParagraph.textContent = returnStatements[randomResult];
+  //creates p tag that holds the +score value.
+  var resultingScoreParagraph = document.createElement('p');
+  cardDiv.appendChild(resultingScoreParagraph);
+  resultingScoreParagraph.textcontent = `+ ${randomResultValue} points`;
+  playerScore += randomResultValue;
+};
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
+if(playerLocation >= 5000){
+  var gameCanvas = document.getElementById('mapCanvas');
+  gameCanvas.remove();
+  var winningNewspaper = document.createElement('img');
+  var mapAttach = document.getElementById('main-screen');
+  mapAttach.appendChild(gameCanvas);
 
+  var playAgainButton = document.createElement('button');
+  mapAttach.appendChild(playAgainButton);
+
+  var showFooter = document.getElementById('footerRow');
+  showFooter.setAttribute('style', 'display: block');
+}
+if(bigfootLocation >= playerLocation){
+  var
+
+}
 //LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
 //(this sets "if bigfoot location >= user location" then "run loser function")
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
