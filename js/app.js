@@ -94,12 +94,26 @@ var makeRandom = function(min, max) {
 var renderMap = function() {
 //creates a div that will store the map in the middle of the 'main-screen'
   var mapLocation = document.createElement('div');
+  mapLocation.setAttribute('style', 'position: relative');
   var cvsAttach = document.getElementById('main-screen');
   cvsAttach.appendChild(mapLocation);  
   //creates the canvas and appends it inside of the maplocation div
-  var cvs = document.createElement('canvas');
-  cvs.setAttribute('id', 'mapCanvas');
+  var cvs = document.createElement('div');
+  cvs.setAttribute('class', 'background');
   mapLocation.appendChild(cvs);
+  //create figure images
+  var bigfootImage = document.createElement('img');
+  bigfootImage.setAttribute('id', 'bigfoot');
+  bigfootImage.setAttribute('class', 'character');
+  bigfootImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/bigfoot.png');
+  cvs.appendChild(bigfootImage);
+
+  var playerImage = document.createElement('img');
+  playerImage.setAttribute('id', 'hiker');
+  playerImage.setAttribute('class', 'character');
+  playerImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/hiker.gif');
+  cvs.appendChild(playerImage);
+
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
   mapLocation.appendChild(scoreboard);
@@ -335,6 +349,7 @@ function handleMapClick(){
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
 function handleCardClick(){
   setTimeout(renderResultCardDiv, 500);
+  var theCard = document.getElementById('question-div');
   theCard.removeEventListener();
   makeResultClickWork();
 }
@@ -371,15 +386,15 @@ function lossCondition(){
 //STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-var grabData = localStorage.getItem('leaderboard');
-var dataParsed = JSON.parse(grabData);
-while(dataParsed.length > 10){
-    dataParsed.sort((a,b)=>{return a-b});
-    dataParsed.shift();
+// var grabData = localStorage.getItem('leaderboard');
+// var dataParsed = JSON.parse(grabData);
+// while(dataParsed.length > 10){
+//     dataParsed.sort((a,b)=>{return a-b});
+//     dataParsed.shift();
+// }
 // for(var i = 0; i < dataParsed.length; i++){
 //   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
 // }
-
 
 
 setTimeout(randomizeAllCards, 500);
