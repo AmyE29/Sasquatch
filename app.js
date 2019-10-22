@@ -182,13 +182,16 @@ if(bigfootLocation >= playerLocation){
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
 var randomizeAllCards = function(){
-  var uniqueRandomNumber = makeRandom(0,3);
-  while(uniqueNumberArray.length < 4){
+  var uniqueRandomNumber = makeRandom(0,4);
+  while(uniqueNumberArray.length < 5){
     if(!uniqueNumberArray.includes(uniqueRandomNumber)){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
-      uniqueRandomNumber = makeRandom(0,3);
+      uniqueRandomNumber = makeRandom(0,4);
     }
+  }
+  for(var i = 0; i < uniqueNumberArray.length; i++){
+    uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
 };
 
