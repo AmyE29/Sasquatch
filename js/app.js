@@ -26,7 +26,7 @@ var uniqueCardsArray = [];
 // NOT SURE IF WE NEED THIS
 
 //PLACE TO ATTACH CARDS ON THE PAGE (this is the variable that the card boxes will be appended to. and then removed from)
-var cardAttach = document.getElementById('mapCanvas');
+// var cardAttach = document.getElementById('mapCanvas');
 //TARGET THE CARD ON THE PAGE FOR REMOVAL (when the cards are created, they are created with card-popup ID. this targets them to be removed later)
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
@@ -96,12 +96,12 @@ var renderMap = function() {
 //creates a div that will store the map in the middle of the 'main-screen'
   var mapLocation = document.createElement('div');
   mapLocation.setAttribute('style', 'position: relative');
+  mapLocation.setAttribute('id', 'mapCanvas');
   var cvsAttach = document.getElementById('main-screen');
   cvsAttach.appendChild(mapLocation);  
   //creates the canvas and appends it inside of the maplocation div
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
-  cvs.setAttribute('id', 'mapCanvas');
   mapLocation.appendChild(cvs);
   //create figure images
   var bigfootImage = document.createElement('img');
@@ -118,6 +118,7 @@ var renderMap = function() {
 
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
+  scoreboard.setAttribute('id', 'scoreboard-ID')
   mapLocation.appendChild(scoreboard);
   //distance from bigfoot
   var distanceScore = document.createElement('p');
@@ -144,7 +145,7 @@ var updateScoreboard = function(){
   var distUpdate = document.getElementById('distance-score');
   distUpdate.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
   //updates player score
-  var scoreUpdate = document.getElementById('id', 'player-scoreboard');
+  var scoreUpdate = document.getElementById('player-scoreboard');
   scoreUpdate.textContent = `SCORE: ${playerScore}`;
 };
 
@@ -168,6 +169,7 @@ var renderCardDiv = function(){
 
   for (var i= 0; i < 4; i ++) {
     var newPTag = document.createElement('p');
+    newPTag.setAttribute('class', 'ptag-options');
     questionDiv.appendChild(newPTag);
     newPTag.textContent = temp.options.options[i];
   }
@@ -365,6 +367,7 @@ function handleResultClick(){
   //map event listener is working again(after some time to let figures move and check if conditions)
   // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
+  setTimeout(updateScoreboard, 500);
   setTimeout(winCondition, 3000);
   setTimeout(lossCondition, 3100);
   setTimeout(renderCardDiv, 6000);

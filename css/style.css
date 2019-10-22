@@ -1,23 +1,50 @@
 .background {
     background-image: url('https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/background.png');
-    width: 1024px;
-    height: 576px;
+    /* width: 1024px;
+    height: 576px; */
+    background-size: cover;
+    width: 100%;
+    height: 100%;
   }
-  
+#mapCanvas {
+    width: 70vw;
+    height: 45vw;
+    margin-left: auto;
+    margin-right: auto;
+}
   #bigfoot {
     transition: transform 0.3s linear;
     transform: initial;
     position: absolute;
-    height: 100px;
+    height: 7vw;
   }
   
   #hiker {
     transition: transform 0.3s linear;
     transform: initial;
-    height: 80px;
+    height: 7vw;
     position: absolute;
   }
-
+.ptag-options:hover{
+    color:white;
+}
+#scoreboard-ID{
+    width: 70vw;
+    margin:0vw;
+}
+.scoreboard {
+    display: inline-block;
+    width: 34vw;
+    border: black solid 0.5vw;
+}
+#card-popup, #firstCard {
+    width: 30vw;
+    border: black solid 0.5vw;
+    background-color: rgba(0, 0, 0, 0.3);
+    position: absolute;
+    top: 5vw;
+    left: 35vw;
+}
 /* 
 html, body {
     background-image: url(../images/background.jpg);
