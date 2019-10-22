@@ -1,10 +1,24 @@
+html, body {
+    background-image: url(../images/background.jpg);
+    background-attachment: fixed;
+    
+    background-size: 100% 100%;
+    width: 100%;
+    height: 120%;
+    margin: 0;
+    padding: 0;
+    /* background-color: rgb(1, 63, 1);
+    border-color: rgb(1, 77, 1); */
+    
+}
+
 fieldset {
     display: block;
-    background-color: rgb(4, 83, 8);
-left: 10in;
-top: 2in;
-/* position: absolute; */
-font-size: 22pt;
+    background-color: rgba(52, 53, 52, 0);
+    margin-left: 9in;
+    margin-right: 12in;
+    font-size: 22pt;
+
 }
 
 input {
@@ -19,22 +33,20 @@ button {
     margin-left: 1in ;
 }
 
-body {
-    background-color: rgb(1, 63, 1);
-    border-color: rgb(1, 77, 1);
-}
+
+
 
 a:nth-child(1) {
     
     margin-left: 0%;
-    color: white;
-    font-size: 40pt;
+    color: rgb(5, 3, 3);
+    font-size: 44pt;
     font-family: 'Rock Salt', cursive;
 }
 a:nth-child(2) {
-    margin-left: 66%;
-    color: white;
-    font-size: 40pt;
+    margin-left: 60%;
+    color: rgb(0, 0, 0);
+    font-size: 44pt;
     font-family: 'Rock Salt', cursive;
 
 }
@@ -43,5 +55,16 @@ h1 {
     margin-left: 35%;
     font-family: 'Rock Salt', cursive;
     font-size: 40pt;
-    color: rgb(199, 233, 199);
+    color: rgb(9, 17, 9);
+}
+
+.rain{
+
+    position: absolute;
+    top:0;
+    height:145%;
+    width: 100%;
+    background-image: url(../images/rain.png);
+    
+    animation: rain .3s linear infinite;
 }
