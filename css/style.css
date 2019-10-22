@@ -95,11 +95,12 @@ h1 {
     100%{
         background-position: 25% 100%
     }
-
+}
 
 img{
     width: 75%;
     height: 75%;
+}
 
 fieldset {
     display: block;

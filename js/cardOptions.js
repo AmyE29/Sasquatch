@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 'use strict';
 
@@ -53,3 +54,5 @@ var tree = new Card ('tree', treeCardPrompt, treeChoices);
 var stream = new Card ('stream', streamCardPrompt, streamChoices);
 var trip = new Card ('trip', tripCardPrompt, tripChoices);
 
+
+var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril' ;
