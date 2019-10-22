@@ -3,7 +3,7 @@
     <head>
         <script src="app.js"></script>
         <script src="cardOptions.js"></script>
-        <link rel="stylesheet" href="style.css">
+        <!-- <link rel="stylesheet" href="style.css"> -->
 
         <title>Squatch Trail</title>
     </head>
@@ -21,14 +21,12 @@
             <!-- to append canvas -->
             <div id = "main-screen"></div>
             <!-- playnow-fieldset is to remove the form after button is clicked -->
-            <fieldset id ="playnow-fieldset">
-                <form>
-                    <legend>
-                    </legend>
-                    <input type= "text", placeholder="Your Name...">
-                    <button>Play Now</button>
-                </form>
-            </fieldset>
+            <form id="user-form">
+                <fieldset>
+                    <input id="playerName" placeholder="Your Name...">
+                    <button>Submit</button>
+                </fieldset>
+            </form>
             <!-- the question cards will pop up and append to main -->
 
             <div id = "question-cards"> </div>
