@@ -6,7 +6,7 @@
 //////////~~~GLOBAL VARIABLES~~~//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
+var winners = [];
 //USER NAME (stored in a variable to be stringified for localStorage)
 var userName = [];
 //RESULT VALUES (gives the score number increase 32%, 23%, 15%, 8% of 5000)
@@ -59,7 +59,14 @@ function OptionsConst(opt1, opt2, opt3, opt4) {
   this.options = [opt1, opt2, opt3, opt4];
 }
 
-//(STRETCH)#3 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
+//#3 PLAYER NAME/SCORE CONSTRUCTOR////////////////////////////////////////////
+//(this creates 'people' with a name and a score property)
+function Player(name, score){
+  this.name = name;
+  this.score = score;
+
+}
+//(STRETCH)#4 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
 //(this would replace our global return statements)
 //(this will create unique return options for each unique selection)(and store the unique responses into each card object instead of having a GLOBAL return statement array)
 //(for example, in one game, eating berries moves you way ahead 32%, you get a return option of "Eating those berries was great! You feel the power...etc.")
@@ -80,6 +87,7 @@ var makeRandom = function(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random()*(max - min + 1)) + min;
 };
+
 //////////////////////////////////////////////////////////////////////////////
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
@@ -98,11 +106,13 @@ var renderMap = function() {
   //distance from bigfoot
   var distanceScore = document.createElement('p');
   distanceScore.setAttribute('class', 'scoreboard');
+  distanceScore.setAttribute('id', 'distance-score');
   scoreboard.appendChild(distanceScore);
-  distanceScore.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)}`
+  distanceScore.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
   //playerScore
   var playerScoreboard = document.createElement('p');
   playerScoreboard.setAttribute('class', 'scoreboard');
+  playerScoreboard.setAttribute('id', 'player-scoreboard');
   scoreboard.appendChild(playerScoreboard);
   playerScoreboard.textContent = `SCORE: ${playerScore}`;
   //here will be our bigfoot and player images
@@ -114,6 +124,19 @@ var renderMap = function() {
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
 };
+
+//////////////////////////////////////////////////////////////////////////////
+//UPDATE SCOREBOARD///////////////////////////////////////////////////////////
+//updates the scoreboard after a result card
+var updateScoreboard = function(){
+//updates distance from bigfoot value
+  var distUpdate = document.getElementById('distance-score');
+  distUpdate.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
+  //updates player score
+  var scoreUpdate = document.getElementById('id', 'player-scoreboard');
+  scoreUpdate.textContent = `SCORE: ${playerScore}`;
+};
+
 //////////////////////////////////////////////////////////////////////////////
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
@@ -129,6 +152,7 @@ var renderCardDiv = function(){
   cardPromptParagraph.textContent = temp.prompt;
 
   var questionDiv = document.createElement('div');
+  questionDiv.setAttribute('id', 'question-div');
   cardDiv.appendChild(questionDiv);
 
   for (var i= 0; i < 4; i ++) {
@@ -177,7 +201,14 @@ var renderResultCardDiv = function(){
 //RENDER WINNER FUNCTION/////////////////////////////////////////////////////
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
 var renderWinner = function(){
+  //create player object
+  var winningPlayer = new Player(userName[0], playerScore);
+  winners.push(winningPlayer);
+  //stringify and store in local storage &**(*&(&(&(*&(*&(&FIX LATER))))))
+//   var storePlayer = JSON.stringify(winningPlayer);
+//   localStorage.setItem('leaderboard', storePlayer);
   //removes the game canvas so that we can display the player's victory
+  var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
@@ -196,6 +227,7 @@ var renderWinner = function(){
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
 var renderLoser = function(){
   //removes the game canvas so that we can display the player's loss
+  var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen
   var gameOverTombstone = document.createElement('img');
@@ -235,33 +267,121 @@ var randomizeAllCards = function(){
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
+//FUNCTIONS TO CREATE THE EVENT LISTENERS/////////////////////////////////////
+//we need these to "add" the event listener AFTER the element with the corresponding ID is created
+
+//#1
+function makeOnSubmitWork(){
+  var onSubmit = document.getElementById('user-form');
+  onSubmit.addEventListener('submit', handleSubmit);
+}
+//#2
+function makeClickFirstCardWork(){
+  var afterFirstCard = document.getElementById('firstCard');
+  afterFirstCard.addEventListener('click', handleFirstClick);
+}
+//#3
+function makeMapClickWork(){
+  var theMap = document.getElementById('mapCanvas');
+  theMap.addEventListener('click', handleMapClick);
+}
+//#4
+function makeCardClickWork(){
+  var theCard = document.getElementById('question-div');
+  theCard.addEventListener('click', handleCardClick);
+}
+//#5
+function makeResultClickWork(){
+  var theResult = document.getElementById('card-popup');
+  theResult.addEventListener('click', handleResultClick);
+}
 //#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
 //(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
 
+function handleSubmit(){
+  event.preventDefault();
+  //checks if the user entered something for their player's name. stores name in userName.
+  if(event.target.playerName.value === ''){
+    alert('Invalid Entry. Please enter your player name.');
+    return;
+  } else {
+    userName.push(event.target.playerName.value);
+    //removes fieldset
+    var fieldsetRemove = document.getElementById('user-form');
+    fieldsetRemove.remove();
+    //creates map
+    renderMap();
+    setTimeout(renderCardDiv, 4000);
+    setTimeout(makeCardClickWork, 4200);
+  }
+}
+
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
+function handleFirstClick(){
+  event.preventDefault();
+  afterFirstCard.remove();
+  makeMapClickWork();
+}
 
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
-
+function handleMapClick(){
+  theMap.removeEventListener();
+  setTimeout(renderCardDiv, 1000);
+  makeCardClickWork();
+}
 //#4 CLICK CARD ANSWER, RENDERS RESULT CARD///////////////////////////////////
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
-
+function handleCardClick(){
+  setTimeout(renderResultCardDiv, 500);
+  theCard.removeEventListener();
+  makeResultClickWork();
+}
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
-
+function handleResultClick(){
+  setTimeout(function(){var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove();}, 500);
+  theResult.removeEventListener();
+  //map event listener is working again(after some time to let figures move and check if conditions)
+  setTimeout(makeMapClickWork, 6000);
+  //delay and check if win or loss
+  setTimeout(winCondition, 3000);
+  setTimeout(lossCondition, 3100);
+}
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
-var gameCanvas = document.getElementById('mapCanvas');
-if(playerLocation >= 5000){
-  renderWinner();
+function winCondition(){
+  if(playerLocation >= 5000){
+    renderWinner();
+  }
 }
 //////////////////////////////////////////////////////////////////////////////
 //LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
 //(this sets "if bigfoot location >= user location" then "run loser function")
-if(bigfootLocation >= playerLocation){
-  renderLoser();
+function lossCondition(){
+  if(bigfootLocation >= playerLocation){
+    renderLoser();
+  }
 }
 
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
+var grabData = localStorage.getItem('leaderboard');
+var dataParsed = JSON.parse(grabData);
+while(dataParsed.length > 10){
+    dataParsed.sort((a,b)=>{return a-b});
+    dataParsed.shift();
+// for(var i = 0; i < dataParsed.length; i++){
+//   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
+// }
+
+
+
+setTimeout(randomizeAllCards, 500);
+//for some reason this is needed to make the submit event listener
+setTimeout(makeOnSubmitWork, 2000);
