@@ -80,6 +80,7 @@ var makeRandom = function(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random()*(max - min + 1)) + min;
 };
+
 //////////////////////////////////////////////////////////////////////////////
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
@@ -98,11 +99,13 @@ var renderMap = function() {
   //distance from bigfoot
   var distanceScore = document.createElement('p');
   distanceScore.setAttribute('class', 'scoreboard');
+  distanceScore.setAttribute('id', 'distance-score');
   scoreboard.appendChild(distanceScore);
-  distanceScore.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)}`
+  distanceScore.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
   //playerScore
   var playerScoreboard = document.createElement('p');
   playerScoreboard.setAttribute('class', 'scoreboard');
+  playerScoreboard.setAttribute('id', 'player-scoreboard');
   scoreboard.appendChild(playerScoreboard);
   playerScoreboard.textContent = `SCORE: ${playerScore}`;
   //here will be our bigfoot and player images
@@ -114,6 +117,19 @@ var renderMap = function() {
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
 };
+
+//////////////////////////////////////////////////////////////////////////////
+//UPDATE SCOREBOARD///////////////////////////////////////////////////////////
+//updates the scoreboard after a result card
+var updateScoreboard = function(){
+//updates distance from bigfoot value
+  var distUpdate = document.getElementById('distance-score');
+  distUpdate.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
+  //updates player score
+  var scoreUpdate = document.getElementById('id', 'player-scoreboard');
+  scoreUpdate.textContent = `SCORE: ${playerScore}`;
+};
+
 //////////////////////////////////////////////////////////////////////////////
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
@@ -178,6 +194,7 @@ var renderResultCardDiv = function(){
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
 var renderWinner = function(){
   //removes the game canvas so that we can display the player's victory
+  var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
@@ -196,6 +213,7 @@ var renderWinner = function(){
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
 var renderLoser = function(){
   //removes the game canvas so that we can display the player's loss
+  var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen
   var gameOverTombstone = document.createElement('img');
@@ -253,7 +271,6 @@ var randomizeAllCards = function(){
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
-var gameCanvas = document.getElementById('mapCanvas');
 if(playerLocation >= 5000){
   renderWinner();
 }
