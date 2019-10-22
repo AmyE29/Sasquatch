@@ -80,6 +80,7 @@ var makeRandom = function(min, max) {
   max = Math.floor(max);
   return Math.floor(Math.random()*(max - min + 1)) + min;
 };
+//////////////////////////////////////////////////////////////////////////////
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
 var renderMap = function() {
@@ -94,6 +95,7 @@ var renderMap = function() {
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
 };
+//////////////////////////////////////////////////////////////////////////////
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
 var renderCardDiv = function(){
@@ -105,18 +107,18 @@ var renderCardDiv = function(){
   //   created prompt paragraph on card
   var cardPromptParagraph = document.createElement('p');
   cardDiv.appendChild(cardPromptParagraph);
-  cardPromptParagraph.textContent(temp.prompt);
+  cardPromptParagraph.textContent = temp.prompt;
 
   var questionDiv = document.createElement('div');
   cardDiv.appendChild(questionDiv);
 
-  for (var i= 0; i < 3; i ++) {
+  for (var i= 0; i < 4; i ++) {
     var newPTag = document.createElement('p');
     questionDiv.appendChild(newPTag);
-    newPTag.textContent = temp.options[i];
+    newPTag.textContent = temp.options.options[i];
   }
 };
-
+//////////////////////////////////////////////////////////////////////////////
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
 var renderFirstCardDiv = function(){
@@ -129,11 +131,12 @@ var renderFirstCardDiv = function(){
   cardDiv.appendChild(cardPromptParagraph);
   cardPromptParagraph.textContent = firstCardObject.prompt;
 };
-
+//////////////////////////////////////////////////////////////////////////////
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
 //(this creates the result card)(appends score from chosen answer)(appends corresponding resultStatement (global))
 //(needs the score from event listener)
 var renderResultCardDiv = function(){
+  var removePopupDiv = document.getElementById('card-popup');
   removePopupDiv.remove();
   var cardAttach = document.getElementById('question-cards');
   var cardDiv = document.createElement('div');
@@ -148,33 +151,45 @@ var renderResultCardDiv = function(){
   //creates p tag that holds the +score value.
   var resultingScoreParagraph = document.createElement('p');
   cardDiv.appendChild(resultingScoreParagraph);
-  resultingScoreParagraph.textcontent = `+ ${randomResultValue} points`;
+  resultingScoreParagraph.textContent = `+ ${randomResultValue} points`;
   playerScore += randomResultValue;
 };
-//WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
-//(this sets "if user location = finishline location" then "run winner function")
+
+//RENDER WINNER FUNCTION/////////////////////////////////////////////////////
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
-var gameCanvas = document.getElementById('mapCanvas');
-if(playerLocation >= 5000){
-  var gameCanvas = document.getElementById('mapCanvas');
+var renderWinner = function(){
+  //removes the game canvas so that we can display the player's victory
   gameCanvas.remove();
+  //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
   var mapAttach = document.getElementById('main-screen');
-  mapAttach.appendChild(gameCanvas);
-
+  mapAttach.appendChild(winningNewspaper);
+  //creates and appends a play button to the image
   var playAgainButton = document.createElement('button');
-  mapAttach.appendChild(playAgainButton);
+  winningNewspaper.appendChild(playAgainButton);
   playAgainButton.textContent = 'PLAY AGAIN';
-
+  //reveals the footer row again
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: block');
-}
-if(bigfootLocation >= playerLocation){
-  gameCanvas.remove();
-}
-//LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
-//(this sets "if bigfoot location >= user location" then "run loser function")
+};
+
+//RENDER LOSER FUNCTION/////////////////////////////////////////////////////
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
+var renderLoser = function(){
+  //removes the game canvas so that we can display the player's loss
+  gameCanvas.remove();
+  //creates an image element that will hold the game-over tombstone, appends to main-screen
+  var gameOverTombstone = document.createElement('img');
+  var mapAttach = document.getElementById('main-screen');
+  mapAttach.appendChild(gameOverTombstone);
+  //creates and appends a play button to the image
+  var playAgainButton = document.createElement('button');
+  gameOverTombstone.appendChild(playAgainButton);
+  playAgainButton.textContent = 'PLAY AGAIN';
+  //reveals the footer row again
+  var showFooter = document.getElementById('footerRow');
+  showFooter.setAttribute('style', 'display: block');
+};
 
 //RANDOMIZE ALL CARDS/////////////////////////////////////////////////////////
 //(say you have 5 cards)(this picks a random number between 0 and 4)(the temp result is used, as the index of allCardsArray, to push that card into uniqueCardsArray)
@@ -194,7 +209,6 @@ var randomizeAllCards = function(){
     uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
 };
-
 
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
@@ -217,6 +231,18 @@ var randomizeAllCards = function(){
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
 
-
+//////////////////////////////////////////////////////////////////////////////
+//WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
+//(this sets "if user location = finishline location" then "run winner function")
+var gameCanvas = document.getElementById('mapCanvas');
+if(playerLocation >= 5000){
+  renderWinner();
+}
+//////////////////////////////////////////////////////////////////////////////
+//LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
+//(this sets "if bigfoot location >= user location" then "run loser function")
+if(bigfootLocation >= playerLocation){
+  renderLoser();
+}
 
 
