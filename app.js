@@ -84,14 +84,33 @@ var makeRandom = function(min, max) {
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
 var renderMap = function() {
+//creates a div that will store the map in the middle of the 'main-screen'
+  var mapLocation = document.createElement('div');
+  var cvsAttach = document.getElementById('main-screen');
+  cvsAttach.appendChild(mapLocation);  
+  //creates the canvas and appends it inside of the maplocation div
   var cvs = document.createElement('canvas');
   cvs.setAttribute('id', 'mapCanvas');
-  var cvsAttach = document.getElementById('main-screen');
-  cvsAttach.appendChild(cvs);
+  mapLocation.appendChild(cvs);
+  //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
+  var scoreboard = document.createElement('div');
+  mapLocation.appendChild(scoreboard);
+  //distance from bigfoot
+  var distanceScore = document.createElement('p');
+  distanceScore.setAttribute('class', 'scoreboard');
+  scoreboard.appendChild(distanceScore);
+  distanceScore.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)}`
+  //playerScore
+  var playerScoreboard = document.createElement('p');
+  playerScoreboard.setAttribute('class', 'scoreboard');
+  scoreboard.appendChild(playerScoreboard);
+  playerScoreboard.textContent = `SCORE: ${playerScore}`;
+  //here will be our bigfoot and player images
   var bgPlayer = new Image();
   var bgBigfoot = new Image();
   bgPlayer.src = 'image url here';
   bgBigfoot.src = 'image url here';
+  //this hides the footer row
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: none');
 };
