@@ -6,7 +6,7 @@
 //////////~~~GLOBAL VARIABLES~~~//////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
-
+var winners = [];
 //USER NAME (stored in a variable to be stringified for localStorage)
 var userName = [];
 //RESULT VALUES (gives the score number increase 32%, 23%, 15%, 8% of 5000)
@@ -59,7 +59,14 @@ function OptionsConst(opt1, opt2, opt3, opt4) {
   this.options = [opt1, opt2, opt3, opt4];
 }
 
-//(STRETCH)#3 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
+//#3 PLAYER NAME/SCORE CONSTRUCTOR////////////////////////////////////////////
+//(this creates 'people' with a name and a score property)
+function Player(name, score){
+  this.name = name;
+  this.score = score;
+
+}
+//(STRETCH)#4 RESULTS STATEMENTS CONSTRUCTOR//////////////////////////////////
 //(this would replace our global return statements)
 //(this will create unique return options for each unique selection)(and store the unique responses into each card object instead of having a GLOBAL return statement array)
 //(for example, in one game, eating berries moves you way ahead 32%, you get a return option of "Eating those berries was great! You feel the power...etc.")
@@ -194,6 +201,12 @@ var renderResultCardDiv = function(){
 //RENDER WINNER FUNCTION/////////////////////////////////////////////////////
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
 var renderWinner = function(){
+  //create player object
+  var winningPlayer = new Player(userName[0], playerScore);
+  winners.push(winningPlayer);
+  //stringify and store in local storage &**(*&(&(&(*&(*&(&FIX LATER))))))
+//   var storePlayer = JSON.stringify(winningPlayer);
+//   localStorage.setItem('leaderboard', storePlayer);
   //removes the game canvas so that we can display the player's victory
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
@@ -352,6 +365,22 @@ function lossCondition(){
     renderLoser();
   }
 }
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+var grabData = localStorage.getItem('leaderboard');
+var dataParsed = JSON.parse(grabData);
+while(dataParsed.length > 10){
+    dataParsed.sort((a,b)=>{return a-b});
+    dataParsed.shift();
+// for(var i = 0; i < dataParsed.length; i++){
+//   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
+// }
+
+
 
 setTimeout(randomizeAllCards, 500);
 //for some reason this is needed to make the submit event listener
