@@ -1,3 +1,8 @@
+
+img{
+    width: 75%;
+    height: 75%;
+
 fieldset {
     display: block;
     background-color: rgb(4, 83, 8);
@@ -44,4 +49,5 @@ h1 {
     font-family: 'Rock Salt', cursive;
     font-size: 40pt;
     color: rgb(199, 233, 199);
+
 }
