@@ -145,6 +145,7 @@ var renderCardDiv = function(){
   cardPromptParagraph.textContent = temp.prompt;
 
   var questionDiv = document.createElement('div');
+  questionDiv.setAttribute('id', 'question-div');
   cardDiv.appendChild(questionDiv);
 
   for (var i= 0; i < 4; i ++) {
@@ -253,12 +254,36 @@ var randomizeAllCards = function(){
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-//#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
-//(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
+//FUNCTIONS TO CREATE THE EVENT LISTENERS/////////////////////////////////////
+//we need these to "add" the event listener AFTER the element with the corresponding ID is created
+
+//#1
 function makeOnSubmitWork(){
   var onSubmit = document.getElementById('user-form');
   onSubmit.addEventListener('submit', handleSubmit);
 }
+//#2
+function makeClickFirstCardWork(){
+  var afterFirstCard = document.getElementById('firstCard');
+  afterFirstCard.addEventListener('click', handleFirstClick);
+}
+//#3
+function makeMapClickWork(){
+  var theMap = document.getElementById('mapCanvas');
+  theMap.addEventListener('click', handleMapClick);
+}
+//#4
+function makeCardClickWork(){
+  var theCard = document.getElementById('question-div');
+  theCard.addEventListener('click', handleCardClick);
+}
+//#5
+function makeResultClickWork(){
+  var theResult = document.getElementById('card-popup');
+  theResult.addEventListener('click', handleResultClick);
+}
+//#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
+//(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
 
 function handleSubmit(){
   event.preventDefault();
@@ -274,31 +299,60 @@ function handleSubmit(){
     //creates map
     renderMap();
     setTimeout(renderCardDiv, 4000);
+    setTimeout(makeCardClickWork, 4200);
   }
-};
+}
+
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
+function handleFirstClick(){
+  event.preventDefault();
+  afterFirstCard.remove();
+  makeMapClickWork();
+}
 
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
 //(when user clicks map it calls create card div function, shows card in middle of map)
-
+function handleMapClick(){
+  theMap.removeEventListener();
+  setTimeout(renderCardDiv, 1000);
+  makeCardClickWork();
+}
 //#4 CLICK CARD ANSWER, RENDERS RESULT CARD///////////////////////////////////
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
-
+function handleCardClick(){
+  setTimeout(renderResultCardDiv, 500);
+  theCard.removeEventListener();
+  makeResultClickWork();
+}
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
-
+function handleResultClick(){
+  setTimeout(function(){var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove();}, 500);
+  theResult.removeEventListener();
+  //map event listener is working again(after some time to let figures move and check if conditions)
+  setTimeout(makeMapClickWork, 6000);
+  //delay and check if win or loss
+  setTimeout(winCondition, 3000);
+  setTimeout(lossCondition, 3100);
+}
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
-if(playerLocation >= 5000){
-  renderWinner();
+function winCondition(){
+  if(playerLocation >= 5000){
+    renderWinner();
+  }
 }
 //////////////////////////////////////////////////////////////////////////////
 //LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
 //(this sets "if bigfoot location >= user location" then "run loser function")
-if(bigfootLocation >= playerLocation){
-  renderLoser();
+function lossCondition(){
+  if(bigfootLocation >= playerLocation){
+    renderLoser();
+  }
 }
 
-
+setTimeout(randomizeAllCards, 500);
+//for some reason this is needed to make the submit event listener
+setTimeout(makeOnSubmitWork, 2000);
