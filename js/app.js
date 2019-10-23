@@ -429,8 +429,8 @@ function handleResultClick(){
   moveBigfoot(bigfootLocation);
   movePlayer(playerScore);
   setTimeout(updateScoreboard, 500);
-  setTimeout(winCondition, 3400);
-  setTimeout(lossCondition, 3500);
+  setTimeout(winCondition, 5000);
+  setTimeout(lossCondition, 5100);
   if(playerLocation < 5000 && bigfootLocation <= playerLocation){
     setTimeout(renderCardDiv, 4000);
     setTimeout(makeCardClickWork, 6500);
@@ -457,3 +457,9 @@ randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//RENDER LEADERBOARD//////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
