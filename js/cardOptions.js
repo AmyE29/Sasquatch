@@ -66,7 +66,7 @@ var snakesChoices = new OptionsConst(snakesOption1, snakesOption2, snakesOption3
 var treeChoices = new OptionsConst(treeOption1, treeOption2, treeOption3, treeOption4);
 var streamChoices = new OptionsConst(streamOption1, streamOption2, streamOption3, streamOption4);
 var tripChoices = new OptionsConst(tripOption1, tripOption2, tripOption3, tripOption4);
-var safetyChoices = new OptionsConst(safetyOption1,safetyOption2, safetyOption3, safetyOption4);
+var safetyChoices = new OptionsConst(safetyOption1, safetyOption2, safetyOption3, safetyOption4);
 var gameChoices = new OptionsConst(gameOptions1, gameOptions2, gameOptions3, gameOptions4);
 var patriotChoices = new OptionsConst(patriotOptions1, patriotOptions2, patriotOptions3, patriotOptions4);
 

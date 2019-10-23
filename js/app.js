@@ -31,7 +31,7 @@ var uniqueCardsArray = [];
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
 // var firstCardObject = [];
-var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril. CLICK TO CONTINUE...';
+var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril';
 //PLAYER SCORE (adds up the player's score throughout the game. to be stored into local storage later)
 var playerScore = 0;
 //WIN OBJECT (if player wins, the final card will get its information from this object)
