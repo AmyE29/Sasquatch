@@ -122,7 +122,7 @@ var renderMap = function() {
   cvs.appendChild(playerImage);
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
-  scoreboard.setAttribute('id', 'scoreboard-ID')
+  scoreboard.setAttribute('id', 'scoreboard-ID');
   mapLocation.appendChild(scoreboard);
   //distance from bigfoot
   var distanceScore = document.createElement('p');
