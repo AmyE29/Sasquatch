@@ -1,0 +1,42 @@
+/* <link href="https://fonts.googleapis.com/css?family=Dokdo&display=swap" rel="stylesheet"> */
+
+/* footer{
+font-family: 'Dokdo', cursive;
+} */
+body{
+    background-color: rgb(5,122,135);
+    margin-bottom: 3em;
+}
+header{
+    width: 100%;
+    height: 125px;
+    background-color: rgb(4,67,74);
+    color: white;
+    text-align: center;
+}
+h2 {
+    font-size: 24pt;
+    color: white;
+}
+div{
+    text-align: center;
+}
+.faces {
+    display: inline-block;
+    width: 35%;
+    height: 35%;
+    margin-top: 2em;
+    margin-left: 1em;
+    margin-right:1em;
+}
+p {
+    text-align: center;
+}
+.about{
+    display: inline-block;
+    width: 35%;
+    background-color: white;
+    margin-left: 1em;
+    margin-right:1em;
+}
+
