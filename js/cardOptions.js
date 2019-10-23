@@ -11,34 +11,34 @@
 //(here is where all the words will be typed out for every card prompt statement, and every card's options)
 //example:
 var berriesCardPrompt = 'You come across some berries.  Do you...';
-var berriesOption1 = 'Eat them? They might give you more energy';
-var berriesOption2 =  'Throw them at Big Foot to slow him down?';
-var berriesOption3 =  'Avoid them, they might be poisonous?';
-var berriesOption4 = 'Collect them to make a pie later?';
+var berriesOption1 = '1 . Eat them? They might give you more energy';
+var berriesOption2 =  '2. Throw them at Big Foot to slow him down?';
+var berriesOption3 =  '3. Avoid them, they might be poisonous?';
+var berriesOption4 = '4. Collect them to make a pie later?';
 
 var snakesCardPrompt = 'Oh no! Snakes on the trail.  Do you...';
-var snakesOption1 =  'Run screaming in the other direction?';
-var snakesOption2 =  'Go all Samuel L Jackson, and \'Get the #$@&%*! Snakes, off the #$@&%*! Trail!!\'" ?';
-var snakesOption3 =  'Eat them? They might give you more energy';
-var snakesOption4 =  'Train them to attack Big Foot?';
+var snakesOption1 =  '1. Run screaming in the other direction?';
+var snakesOption2 =  '2. Go all Samuel L Jackson, and \'Get the #$@&%*! Snakes, off the #$@&%*! Trail!!\'" ?';
+var snakesOption3 =  '3. Eat them? They might give you more energy';
+var snakesOption4 =  '4. Train them to attack Big Foot?';
 
 var treeCardPrompt = 'You are blocked by a fallen tree.  Do you...';
-var treeOption1 = 'Leap over it?';
-var treeOption2 =  'Try to hide behind it?';
-var treeOption3 =  'Go around it?';
-var treeOption4 = 'Dig under it?';
+var treeOption1 = '1. Leap over it?';
+var treeOption2 =  '2. Try to hide behind it?';
+var treeOption3 =  '3. Go around it?';
+var treeOption4 = '4. Dig under it?';
 
 var streamCardPrompt = 'Ack! There\'s a stream.  Do you...';
-var streamOption1 = 'Swim across it?';
-var streamOption2 =  'Stop for a quick drink?';
-var streamOption3 =  'Catapult over it?';
-var streamOption4 = 'Try to hide under water and hope Big Foot doesn\'t see you?';
+var streamOption1 = '1. Swim across it?';
+var streamOption2 =  '2. Stop for a quick drink?';
+var streamOption3 =  '3. Catapult over it?';
+var streamOption4 = '4. Try to hide under water and hope Big Foot doesn\'t see you?';
 
 var tripCardPrompt = 'Ooops! You trip over some roots, and hurt your ankle.  Do you...';
-var tripOption1 = 'Pick yourself up and keep running?';
-var tripOption2 =  'Rest a bit, and massage it?';
-var tripOption3 =  'Rub some dirt on it?';
-var tripOption4 = 'Lay down and cry?';
+var tripOption1 = '1. Pick yourself up and keep running?';
+var tripOption2 =  '2. Rest a bit, and massage it?';
+var tripOption3 =  '3. Rub some dirt on it?';
+var tripOption4 = '4. Lay down and cry?';
 
 // make 5 object functions using above options
 var berriesChoices = new OptionsConst( berriesOption1, berriesOption2, berriesOption3, berriesOption4);
