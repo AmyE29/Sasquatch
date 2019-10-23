@@ -279,6 +279,7 @@ var renderWinner = function(){
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
+  winningNewspaper.setAttribute('id', 'newspaperImage');
   winningNewspaper.setAttribute('src', 'images/newspaper.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(winningNewspaper);
