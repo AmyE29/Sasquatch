@@ -103,19 +103,23 @@ var renderMap = function() {
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
   mapLocation.appendChild(cvs);
-  //create figure images
+  //create car image
+  var amysPurpleCar = document.createElement('img');
+  amysPurpleCar.setAttribute('id', 'purple-car');
+  amysPurpleCar.setAttribute('src', 'images/car.png');
+  cvs.appendChild(amysPurpleCar);
+  //create bigfoot image
   var bigfootImage = document.createElement('img');
   bigfootImage.setAttribute('id', 'bigfoot');
   bigfootImage.setAttribute('class', 'character');
   bigfootImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/bigfoot.png');
   cvs.appendChild(bigfootImage);
-
+  //create player image
   var playerImage = document.createElement('img');
   playerImage.setAttribute('id', 'hiker');
   playerImage.setAttribute('class', 'character');
   playerImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/hiker.gif');
   cvs.appendChild(playerImage);
-
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
   scoreboard.setAttribute('id', 'scoreboard-ID')
@@ -227,6 +231,7 @@ var renderWinner = function(){
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
+  winningNewspaper.setAttribute('src', 'images/newspaper.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(winningNewspaper);
   //creates and appends a play button to the image
@@ -246,6 +251,7 @@ var renderLoser = function(){
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen
   var gameOverTombstone = document.createElement('img');
+  gameOverTombstone.setAttribute('src', 'images/tombstone.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(gameOverTombstone);
   //creates and appends a play button to the image
@@ -369,6 +375,8 @@ function handleResultClick(){
   //map event listener is working again(after some time to let figures move and check if conditions)
   // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
+  moveBigfoot(bigfootLocation);
+  movePlayer(playerScore);
   setTimeout(updateScoreboard, 500);
   setTimeout(winCondition, 5000);
   setTimeout(lossCondition, 5100);
@@ -408,8 +416,23 @@ function lossCondition(){
 // }
 
 //MOVING OUR FIGURES//////////////////////////////////////////////////////////
-
-
+function moveBigfoot(bigfootLocation){
+  var grabbingBigfoot = document.getElementById('bigfoot');
+  if(bigfootLocation > playerLocation){
+    bigfootLocation = (playerLocation + 750);
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/100)}vw, ${(bigfootLocation*0.004)}vw);`);
+  } else {
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/100)}vw, ${(bigfootLocation*0.004)}vw);`);
+  }
+}
+function movePlayer(playerScore){
+  var grabbingPlayer = document.getElementById('hiker');
+  if(playerScore > 5000){
+    grabbingPlayer.setAttribute('style', 'transform: translate(50vw, 25vw);');
+  } else {
+    grabbingPlayer.setAttribute('style', `transform: translate(${(playerScore/100)}vw, ${(playerScore/200)}vw);`); 
+  }
+}
 randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
