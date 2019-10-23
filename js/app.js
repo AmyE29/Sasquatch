@@ -103,19 +103,23 @@ var renderMap = function() {
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
   mapLocation.appendChild(cvs);
-  //create figure images
+  //create car image
+  var amysPurpleCar = document.createElement('img');
+  amysPurpleCar.setAttribute('id', 'purple-car');
+  amysPurpleCar.setAttribute('src', 'images/car.png');
+  cvs.appendChild(amysPurpleCar);
+  //create bigfoot image
   var bigfootImage = document.createElement('img');
   bigfootImage.setAttribute('id', 'bigfoot');
   bigfootImage.setAttribute('class', 'character');
   bigfootImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/bigfoot.png');
   cvs.appendChild(bigfootImage);
-
+  //create player image
   var playerImage = document.createElement('img');
   playerImage.setAttribute('id', 'hiker');
   playerImage.setAttribute('class', 'character');
   playerImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/hiker.gif');
   cvs.appendChild(playerImage);
-
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
   scoreboard.setAttribute('id', 'scoreboard-ID')
@@ -209,22 +213,73 @@ var renderResultCardDiv = function(){
   cardDiv.appendChild(resultingScoreParagraph);
   resultingScoreParagraph.textContent = `+ ${randomResultValue} points`;
   playerScore += randomResultValue;
+  playerLocation += randomResultValue;
+  bigfootLocation += 1000;
 };
 
+//////////////////////////////////////////////////////////////////////////////
+//MOVING OUR FIGURES//////////////////////////////////////////////////////////
+//this uses translate(x-axis, y-axis) to move our characters south east across the screen
+function moveBigfoot(bigfootLocation){
+  var grabbingBigfoot = document.getElementById('bigfoot');
+  if(bigfootLocation > playerLocation){
+    bigfootLocation = playerLocation;
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/100)}vw, ${(bigfootLocation*0.004)}vw);`);
+  } else {
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/100)}vw, ${(bigfootLocation*0.004)}vw);`);
+  }
+}
+function movePlayer(playerScore){
+  var grabbingPlayer = document.getElementById('hiker');
+  if(playerLocation > 5000){
+    grabbingPlayer.setAttribute('style', 'transform: translate(50vw, 25vw);');
+  } else {
+    grabbingPlayer.setAttribute('style', `transform: translate(${(playerScore/100)}vw, ${(playerScore/200)}vw);`); 
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+//this function grabs local storage, parses the array, reconstructs the players, stores the reconstructed players in winners, sorts the winners by score low to high, if more than 10 high scores it removes the lowest
+function grabLocalStorage(){
+  var grabData = localStorage.getItem('leaderboard');
+  var dataParsed = JSON.parse(grabData);
+  for(var i = 0; i < dataParsed.length; i++){
+    var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
+    winners.push(newPlaya);
+  }
+  winners.sort((a,b) => {
+    if(a.score > b.score){
+      return 1;
+    } else {
+      return -1;
+    }
+  });
+  while(winners.length > 10){
+    winners.shift();
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////
 //RENDER WINNER FUNCTION/////////////////////////////////////////////////////
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
 var renderWinner = function(){
   //create player object
   var winningPlayer = new Player(userName[0], playerScore);
   winners.push(winningPlayer);
-  //stringify and store in local storage &**(*&(&(&(*&(*&(&FIX LATER))))))
-//   var storePlayer = JSON.stringify(winningPlayer);
-//   localStorage.setItem('leaderboard', storePlayer);
+  //retrieve the local storage so that we can ADD our winner to the array. Not replace the array.
+  grabLocalStorage();
+  // stringify and store in local storage
+  var storePlayers = JSON.stringify(winners);
+  localStorage.setItem('leaderboard', storePlayers);
   //removes the game canvas so that we can display the player's victory
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
+  winningNewspaper.setAttribute('src', 'images/newspaper.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(winningNewspaper);
   //creates and appends a play button to the image
@@ -236,6 +291,7 @@ var renderWinner = function(){
   showFooter.setAttribute('style', 'display: block');
 };
 
+//////////////////////////////////////////////////////////////////////////////
 //RENDER LOSER FUNCTION/////////////////////////////////////////////////////
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
 var renderLoser = function(){
@@ -244,6 +300,7 @@ var renderLoser = function(){
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen
   var gameOverTombstone = document.createElement('img');
+  gameOverTombstone.setAttribute('src', 'images/tombstone.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(gameOverTombstone);
   //creates and appends a play button to the image
@@ -255,6 +312,7 @@ var renderLoser = function(){
   showFooter.setAttribute('style', 'display: block');
 };
 
+//////////////////////////////////////////////////////////////////////////////
 //RANDOMIZE ALL CARDS/////////////////////////////////////////////////////////
 //(say you have 5 cards)(this picks a random number between 0 and 4)(the temp result is used, as the index of allCardsArray, to push that card into uniqueCardsArray)
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
@@ -275,6 +333,7 @@ function fillUniqueCardsArray(){
     uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
 }
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //////////~~~EVENT LISTENERS~~~///////////////////////////////////////////////
@@ -367,11 +426,15 @@ function handleResultClick(){
   //map event listener is working again(after some time to let figures move and check if conditions)
   // setTimeout(makeMapClickWork, 6000);
   //delay and check if win or loss
+  moveBigfoot(bigfootLocation);
+  movePlayer(playerScore);
   setTimeout(updateScoreboard, 500);
-  setTimeout(winCondition, 3000);
-  setTimeout(lossCondition, 3100);
-  setTimeout(renderCardDiv, 6000);
-  setTimeout(makeCardClickWork, 6500);
+  setTimeout(winCondition, 3400);
+  setTimeout(lossCondition, 3500);
+  if(playerLocation < 5000 && bigfootLocation <= playerLocation){
+    setTimeout(renderCardDiv, 4000);
+    setTimeout(makeCardClickWork, 6500);
+  }
 }
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
@@ -389,22 +452,6 @@ function lossCondition(){
     renderLoser();
   }
 }
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-
-// var grabData = localStorage.getItem('leaderboard');
-// var dataParsed = JSON.parse(grabData);
-// while(dataParsed.length > 10){
-//     dataParsed.sort((a,b)=>{return a-b});
-//     dataParsed.shift();
-// }
-// for(var i = 0; i < dataParsed.length; i++){
-//   new Product(dataParsed[i].name, dataParsed[i].views, dataParsed[i].votes);
-// }
-
 
 randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);

@@ -12,19 +12,27 @@
     margin-left: auto;
     margin-right: auto;
 }
-  #bigfoot {
-    transition: transform 0.3s linear;
+#bigfoot {
+    transition: transform 3.39s linear;
     transform: initial;
     position: absolute;
     height: 7vw;
-  }
-  
-  #hiker {
-    transition: transform 0.3s linear;
+    top: 10vw;
+} 
+#hiker {
+    transition: transform 3.39s linear;
     transform: initial;
     height: 7vw;
     position: absolute;
-  }
+    top: 12vw;
+    left: 9vw;
+}
+#purple-car {
+    height: 4vw;
+    position: absolute;
+    top: 38vw;
+    right: 3.6vw;
+}
 .ptag-options:hover{
     color:white;
 }
