@@ -210,8 +210,12 @@ var renderResultCardDiv = function(){
   cardResultParagraph.textContent = returnStatements[randomResult];
   //creates p tag that holds the +score value.
   var resultingScoreParagraph = document.createElement('p');
+  resultingScoreParagraph.setAttribute('id', 'resultingscore');
   cardDiv.appendChild(resultingScoreParagraph);
-  resultingScoreParagraph.textContent = `and you\'ve earned ${randomResultValue} points.  CLICK TO CONTINUE`;
+  resultingScoreParagraph.textContent = `+ ${randomResultValue} points.`;
+  var clicktoContinue = document.createElement('p');
+  cardDiv.appendChild(clicktoContinue);
+  clicktoContinue.textContent = 'CLICK TO CONTINUE';
   playerScore += randomResultValue;
   playerLocation += randomResultValue;
   bigfootLocation += 1000;
