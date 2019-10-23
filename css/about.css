@@ -1,4 +1,4 @@
-/* <link href="https://fonts.googleapis.com/css?family=Dokdo&display=swap" rel="stylesheet"> */
+
 
 /* <a href="https://www.freepik.com/free-photos-vectors/label">Label vector created by starline - www.freepik.com</a> */
 
@@ -9,10 +9,15 @@ body{
     background: rgb(232,249,229);
     background: linear-gradient(0deg, rgba(232,249,229,1) 0%, rgba(209,238,204,1) 35%, rgba(87,169,154,1) 100%);
     margin-bottom: 3em;
+    background-repeat: no-repeat;
+    height: 120vw;
+    
 }
 h2 {
-    font-size: 24pt;
-    color: white;
+    font-size: 48pt;
+    color: 
+    #d7eaf7;
+    font-family: 'Dokdo', cursive;
 }
 div{
     text-align: center;
@@ -31,17 +36,28 @@ p {
 .about{
     display: inline-block;
     width: 35%;
-    background-color: white;
+    background-color: 
+    #b4c7d9;
     margin-left: 1em;
     margin-right:1em;
 }
 #topscores{
     margin-top: 2em;
+    height: 50em;
+
 }
 #logo {
     width: 50vw;
     height: 15vw;
 }
+#leaderboard{
+    width: 30vw;
+    height: 5vw;
+}
 header{
     text-align: center;
+}
+#abouttitle{
+    width: 30vw;
+    height: 5vw;
 }
