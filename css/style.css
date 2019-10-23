@@ -13,14 +13,14 @@
     margin-right: auto;
 }
 #bigfoot {
-    transition: transform 0.3s linear;
+    transition: transform 3.39s linear;
     transform: initial;
     position: absolute;
     height: 7vw;
     top: 10vw;
 } 
 #hiker {
-    transition: transform 0.3s linear;
+    transition: transform 3.39s linear;
     transform: initial;
     height: 7vw;
     position: absolute;
