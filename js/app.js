@@ -98,7 +98,7 @@ var renderMap = function() {
   mapLocation.setAttribute('style', 'position: relative');
   mapLocation.setAttribute('id', 'mapCanvas');
   var cvsAttach = document.getElementById('main-screen');
-  cvsAttach.appendChild(mapLocation);  
+  cvsAttach.appendChild(mapLocation);
   //creates the canvas and appends it inside of the maplocation div
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
