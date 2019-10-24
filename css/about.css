@@ -70,12 +70,12 @@ header{
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
-    width: 19%;
+    width: 14%;
     text-align: right;
     /* margin-right: 2.5%; */
     margin-bottom: 1vw;
     /* background-color: grey; */
-    margin-left: 28%;
+    /* margin-left: 28%; */
     /* border: #4c9b8c solid 0.2vw; */
 }
 .leaderPTag-name {
@@ -83,10 +83,20 @@ header{
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
-    width: 19%;
+    width: 15%;
     margin-left: 4%;
     margin-bottom: 1vw;
     /* background-color: grey; */
     /* border: #4c9b8c solid 0.2vw; */
     margin-right: 20%;
+}
+.ranking {
+    font-family: 'Press Start 2P', cursive;
+    display: inline-block;
+    font-size: 3vw;
+    text-emphasis: bold;
+    margin-left: 30.5%;
+}
+#ID10 {
+    margin-left: 27.5%;
 }

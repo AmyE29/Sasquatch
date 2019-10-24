@@ -14,6 +14,11 @@ function fillLeaderboard(){
     var addLeaderDiv = document.createElement('div');
     addLeaderDiv.setAttribute('class', 'leader-class');
     findLeaderboard.appendChild(addLeaderDiv);
+    var addRanking = document.createElement('p');
+    addRanking.setAttribute('class', 'ranking');
+    addRanking.setAttribute('id', `ID${i}`);
+    addLeaderDiv.appendChild(addRanking);
+    addRanking.textContent = `${i}.`;
     var addLeaderScoreTag = document.createElement('p');
     addLeaderScoreTag.setAttribute('class', 'leaderPTag-score');
     addLeaderDiv.appendChild(addLeaderScoreTag);
