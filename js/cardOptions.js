@@ -44,7 +44,13 @@ var squirrelCardPrompt = 'You see a amourous squirrel. Do you...';
 var squirrelOption1 = '1. Scream?';
 var squirrelOption2 =  '2. Throw rocks at it?';
 var squirrelOption3 =  '3. Convince it to seduce Big Foot?';
-var squirrelOption4 = '4. Ask it to Nextflix and chill with you?';
+var squirrelOption4 = '4. Ask it to Netflix and chill with you?';
+
+var boulderCardPrompt = 'There\'s a boulder in your path. Do you...';
+var boulderOption1 = '1. Climb over it?';
+var boulderOption2 =  '2. Go around it?';
+var boulderOption3 =  '3. Dig under it?';
+var boulderOption4 = '4. Stand on top of it and hope Big Foot can\'t reach you?';
 
 
 // make 5 object functions using above options
@@ -54,6 +60,7 @@ var treeChoices = new OptionsConst( treeOption1, treeOption2, treeOption3, treeO
 var streamChoices = new OptionsConst( streamOption1, streamOption2, streamOption3, streamOption4);
 var tripChoices = new OptionsConst( tripOption1, tripOption2, tripOption3, tripOption4);
 var squirrelChoices = new OptionsConst( squirrelOption1, squirrelOption2, squirrelOption3, squirrelOption4);
+var boulderChoices = new OptionsConst( boulderOption1, boulderOption2, boulderOption3, boulderOption4);
 
 // make 5 cards && store them in allCardsArray
 var berries = new Card ('berries', berriesCardPrompt, berriesChoices);
@@ -62,7 +69,7 @@ var tree = new Card ('tree', treeCardPrompt, treeChoices);
 var stream = new Card ('stream', streamCardPrompt, streamChoices);
 var trip = new Card ('trip', tripCardPrompt, tripChoices);
 var squirrel= new Card ('trip', squirrelCardPrompt, squirrelChoices);
-
+var boulder= new Card ('trip', boulderCardPrompt, boulderChoices);
 
 var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril. CLICK TO CONTINUE...' ;
 
