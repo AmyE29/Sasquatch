@@ -259,12 +259,17 @@ function movePlayer(playerScore){
 //////////////////////////////////////////////////////////////////////////////
 //this function grabs local storage, parses the array, reconstructs the players, stores the reconstructed players in winners, sorts the winners by score low to high, if more than 10 high scores it removes the lowest
 function grabLocalStorage() {
-  var grabData = localStorage.getItem('leaderboard');
-  var dataParsed = JSON.parse(grabData);
-  for (var i = 0; i < dataParsed.length; i++) {
-    var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
-    winners.push(newPlaya);
+  if(localStorage.leaderboard === undefined){
+      return;
+  } else{
+    var grabData = localStorage.getItem('leaderboard');
+    var dataParsed = JSON.parse(grabData);
+    for (var i = 0; i < dataParsed.length; i++) {
+      var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
+      winners.push(newPlaya);
+    }
   }
+
 
 //function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
   winners.sort((a,b) => {
@@ -354,7 +359,6 @@ var renderLoser = function () {
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
-<<<<<<< HEAD
 var randomizeAllCards = function(){
   var uniqueRandomNumber = makeRandom(0,9);
   while(uniqueNumberArray.length < 5){
@@ -362,15 +366,6 @@ var randomizeAllCards = function(){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
       uniqueRandomNumber = makeRandom(0,9);
-=======
-var randomizeAllCards = function () {
-  var uniqueRandomNumber = makeRandom(0, 4);
-  while (uniqueNumberArray.length < 5) {
-    if (!uniqueNumberArray.includes(uniqueRandomNumber)) {
-      uniqueNumberArray.push(uniqueRandomNumber);
-    } else {
-      uniqueRandomNumber = makeRandom(0, 4);
->>>>>>> ab9bf804359ffa29402f60f62a8e1ef5555d5c3d
     }
   }
 };
