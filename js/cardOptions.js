@@ -53,7 +53,7 @@ var boulderOption2 =  '2. Go around it?';
 var boulderOption3 =  '3. Dig under it?';
 var boulderOption4 = '4. Stand on top of it and hope Big Foot can\'t reach you?';
 
-var safetyCardPrompt = 'Your runnning down the trail and you see a couple. Do You?';
+var safetyCardPrompt = 'You\'rerunnning down the trail and you see a couple. Do You?';
 var safetyOption1 = '1. Yell help, then trip them, hoping the beast stops for them!';
 var safetyOption2 = '2. Tell them to stop and turn around!';
 var safetyOption3 = '3. Play a game of chance roll the dice';
@@ -65,12 +65,11 @@ var gameOptions2 = '2. I choose to keep running, I\'m not gonna die today';
 var gameOptions3 = '3. Ignore the chainsaw, it\'s just an illusion.';
 var gameOptions4 = '4. Scream!!!!!';
 
-var patriotCardPrompt = 'You see a basket full of food. Do you ..';
-var patriotOptions1 = '1. Take a chance you\'re starving!';
-var patriotOptions2 = '2. Keep running, you\'re about to die!';
-var patriotOptions3 = '3. Grab the basket and throw it behind you?';
+var patriotCardPrompt = 'You see a basket full of food. Do you?';
+var patriotOptions1 = '1. I\'m going to take a chance I\'m starving!';
+var patriotOptions2 = '2. Just keep running, you\'re about to die!';
+var patriotOptions3 = '3. Grab the basket and throw it behind you.';
 var patriotOptions4 = '4. Life all about chances, let\'s play a game!';
-
 
 // make object functions using above options
 var berriesChoices = new OptionsConst( berriesOption1, berriesOption2, berriesOption3, berriesOption4);
