@@ -174,3 +174,8 @@ p {
 100% { transform: rotate(1deg); }
 }
 
+
+/* This was missing, had to make it centered to be more appealing to the user */
+#Game-Over {
+    margin-left: 35vw;
+}
