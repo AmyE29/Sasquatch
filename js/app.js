@@ -354,13 +354,13 @@ var renderLoser = function () {
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
-var randomizeAllCards = function () {
-  var uniqueRandomNumber = makeRandom(0, 4);
-  while (uniqueNumberArray.length < 5) {
-    if (!uniqueNumberArray.includes(uniqueRandomNumber)) {
+var randomizeAllCards = function(){
+  var uniqueRandomNumber = makeRandom(0,9);
+  while(uniqueNumberArray.length < 5){
+    if(!uniqueNumberArray.includes(uniqueRandomNumber)){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
-      uniqueRandomNumber = makeRandom(0, 4);
+      uniqueRandomNumber = makeRandom(0,9);
     }
   }
 };
