@@ -68,6 +68,7 @@ header{
     transform: scale(1.05);
 }
 .leaderPTag-score {
+    font-family: 'Press Start 2P', cursive;
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
@@ -76,15 +77,17 @@ header{
     /* margin-right: 2.5%; */
     margin-bottom: 1vw;
     /* background-color: grey; */
-    margin-left: 30%;
-    border: #4c9b8c solid 1px;
+    margin-left: 28%;
+    /* border: #4c9b8c solid 0.2vw; */
+
 }
 .leaderPTag-name {
+    font-family: 'Press Start 2P', cursive;
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
     width: 19%;
-    margin-left: 2%;
+    margin-left: 4%;
     margin-bottom: 1vw;
     /* background-color: grey; */
     margin-right: 20%;
