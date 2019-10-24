@@ -143,7 +143,7 @@ p {
     margin-bottom: 1vw;
     width: 38%;
 }
-#tombstone-id {
+#Game-Over {
     display: block;
     margin-right: auto;
     margin-left: auto;
@@ -183,6 +183,3 @@ p {
 
 
 /* This was missing, had to make it centered to be more appealing to the user */
-#Game-Over {
-    margin-left: 35vw;
-}
