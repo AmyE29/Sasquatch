@@ -56,14 +56,19 @@ header{
     margin-left: 9.5vw;
     margin-right: 9.5vw;
 }
-.background {
-    background-image: url('https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/background.png');
-    /* width: 1024px;
-    height: 576px; */
-    background-size: cover;
+#background-image {
     width: 50vw;
     height: 34vw;
-  }
+    position: absolute;
+}
+.background {
+    /* background-image: url('Media/background.png'); */
+    /* width: 1024px;
+    height: 576px; */
+    /* background-size: cover; */
+    width: 50vw;
+    height: 34vw;
+}
 main {
     margin-top: 1.5vw;
 }

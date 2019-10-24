@@ -105,6 +105,10 @@ var renderMap = function () {
   var cvs = document.createElement('div');
   cvs.setAttribute('class', 'background');
   mapLocation.appendChild(cvs);
+  var backgroundImage = document.createElement('img');
+  backgroundImage.setAttribute('src', 'Media/background.png');
+  backgroundImage.setAttribute('id', 'background-image');
+  cvs.appendChild(backgroundImage);
   //create car image
   var amysPurpleCar = document.createElement('img');
   amysPurpleCar.setAttribute('id', 'purple-car');
@@ -460,20 +464,6 @@ function stopBackgroundMusic(){
     // music.remove();
   }
 }
-
-// function stopGameMusic(){
-//   startGameMusic();
-//   var gameMusic = document.getElementById('game-music');
-//   gameMusic.remove();
-// }
-// function startGameMusic(){
-//   var gameMusic = document.createElement('audio');
-//   gameMusic.setAttribute('autoplay', '');
-//   gameMusic.setAttribute('loop', '');
-//   gameMusic.setAttribute('src', 'Media/Sound Effect for game start.mp3');
-//   gameMusic.setAttribute('id', 'game-music');
-//   gameMusic.volume = 0.3;
-// }
 function startTheCar(){
   var carStart = document.createElement('audio');
   carStart.setAttribute('autoplay', '');
@@ -545,9 +535,7 @@ function handleResultClick() {
     setTimeout(makeCardClickWork, 6500);
   }
 }
-function moveCar(){
 
-}
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
@@ -557,7 +545,7 @@ function winCondition(){
     var grabbingPlayer = document.getElementById('hiker');
     var grabCar = document.getElementById('purple-car');
     startTheCar();
-    setTimeout(grabbingPlayer.remove(), 2000);
+    setTimeout(grabbingPlayer.remove(), 1000);
     setTimeout(grabCar.setAttribute('style', 'transform: translate(3vw,0)'), 2000);
     setTimeout(renderWinner, 4000);
     setTimeout(gameMusic.volume = 0, 4000);
