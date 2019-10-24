@@ -342,12 +342,12 @@ var renderLoser = function(){
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
 var randomizeAllCards = function(){
-  var uniqueRandomNumber = makeRandom(0,4);
+  var uniqueRandomNumber = makeRandom(0,9);
   while(uniqueNumberArray.length < 5){
     if(!uniqueNumberArray.includes(uniqueRandomNumber)){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
-      uniqueRandomNumber = makeRandom(0,4);
+      uniqueRandomNumber = makeRandom(0,9);
     }
   }
 };
