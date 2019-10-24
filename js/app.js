@@ -93,6 +93,8 @@ var makeRandom = function (min, max) {
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
 var renderMap = function () {
+  var mainLocation = document.getElementById('main');
+  
   //creates a div that will store the map in the middle of the 'main-screen'
   var mapLocation = document.createElement('div');
   mapLocation.setAttribute('style', 'position: relative');
@@ -123,7 +125,7 @@ var renderMap = function () {
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
   scoreboard.setAttribute('id', 'scoreboard-ID');
-  mapLocation.appendChild(scoreboard);
+  cvsAttach.appendChild(scoreboard);
   //distance from bigfoot
   var distanceScore = document.createElement('p');
   distanceScore.setAttribute('class', 'scoreboard');
@@ -297,12 +299,14 @@ var renderWinner = function () {
   var storePlayers = JSON.stringify(winners);
   localStorage.setItem('leaderboard', storePlayers);
   //removes the game canvas so that we can display the player's victory
+  var scoreBar = document.getElementById('scoreboard-ID');
+  scoreBar.remove();
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the newspaper appends to main-screen
   var winningNewspaper = document.createElement('img');
   winningNewspaper.setAttribute('id', 'newspaperImage');
-  winningNewspaper.setAttribute('src', 'images/newspaper.png');
+  winningNewspaper.setAttribute('src', 'Images/newspaper2.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(winningNewspaper);
   //creates and appends a play button to the image
@@ -335,6 +339,8 @@ var renderLoser = function () {
   var storePlayers = JSON.stringify(winners);
   localStorage.setItem('leaderboard', storePlayers);
   //removes the game canvas so that we can display the player's loss
+  var scoreBar = document.getElementById('scoreboard-ID');
+  scoreBar.remove();
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen

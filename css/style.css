@@ -103,14 +103,16 @@ main {
     margin-top: 1vw;
 }
 #scoreboard-ID{
-    width: 50.2vw;
-    margin:0vw;
-    font-size: 0.75vw;
+    width: 100%;
+    /* margin-left: 7%; */
+    font-size: 1vw;
+    text-align: center;
 }
 .scoreboard {
     display: inline-block;
-    width: 24.5vw;
+    width: 40%;
     border: black solid 0.3vw;
+    padding: 0.5vw;
 }
 #card-popup, #firstCard {
     width: 30vw;
@@ -139,6 +141,7 @@ p {
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 1vw;
+    width: 38%;
 }
 #tombstone-id {
     display: block;
