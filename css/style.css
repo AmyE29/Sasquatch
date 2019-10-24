@@ -11,7 +11,7 @@ body{
     height: 12vw;
 }
 #user-form {
-    width: 16vw;
+    width: 25vw;
     margin-right: auto;
     margin-left: auto;
     text-align: center;
@@ -20,17 +20,25 @@ body{
     border: #57a99a solid 1vw;
     background-color: #d1eecc00;
 }
+input {
+    font-size: 1vw;
+    text-align: center;
+}
 #playnowButton {
-    width: 100%;
+    width: 70%;
 }
 fieldset {
-    height: 7vw;
+    height: 9vw;
     padding: 1vw;
 }
 #playerName, button {
     margin: 0.5vw;
-    width: 10vw;
-    height: 2.6vw;
+    width: 18vw;
+    height: 3vw;
+}
+#playerName {
+    height: 2.4vw;
+    font-size: 1.5vw;
 }
 button {  
     background-color: black;
@@ -78,6 +86,7 @@ main {
     left: 6vw;
 }
 #purple-car {
+    transition: transform 2s linear;
     height: 3vw;
     position: absolute;
     top: 30.5vw;
@@ -122,14 +131,21 @@ p {
     font-family: 'Press Start 2P', cursive;
 }
 #newspaperImage {
-    margin-left: 26.5vw;
-    margin-top: 3vw;
-    margin-bottom: 3vw;
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin-bottom: 1vw;
 }
-/* #card-popup p {
-    margin-bottom: 4vw;
-    margin-top: 3vw;
-} */
+#tombstone-id {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
+#playAgain-id {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+}
 #resultingscore {
     text-align: center;
     margin-top: 5vw;
@@ -137,3 +153,24 @@ p {
     font-size: 2vw;
     border-bottom: black solid 0.2vw;
 }
+
+#aboutusLog:hover {
+    animation: shake 300ms infinite;
+    animation-timing-function: linear;   
+}
+#leaderboardLog:hover {
+    animation: shake 300ms infinite;
+    animation-timing-function: linear;   
+}
+#logo:hover {
+    transform: scale(1.05);
+}
+#playnowButton:hover {
+    transform: scale(1.05);
+}
+@keyframes shake {
+0% { transform: rotate(1deg); }
+50% { transform: rotate(-1deg); }
+100% { transform: rotate(1deg); }
+}
+
