@@ -270,6 +270,7 @@ function grabLocalStorage() {
     }
   }
 
+
   //function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
   winners.sort((a,b) => {
     if(a.score > b.score){

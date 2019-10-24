@@ -25,7 +25,7 @@ input {
     text-align: center;
 }
 #playnowButton {
-    width: 70%;
+    width: 100%;
 }
 fieldset {
     height: 9vw;
@@ -41,7 +41,11 @@ fieldset {
     font-size: 1.5vw;
 }
 button {  
-    background-color: black;
+    background-color: #5aa0b8;
+    border-radius: 15px;
+    vertical-align: middle;
+    width: 15vw;
+    height: 3vw;
 }
 header{
     text-align: center;
