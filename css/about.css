@@ -5,7 +5,7 @@ body{
     background: linear-gradient(0deg, rgba(232,249,229,1) 0%, rgba(209,238,204,1) 35%, rgba(87,169,154,1) 90%, rgb(11, 75, 62) 100%);
     margin-bottom: 3em;
     background-repeat: no-repeat;
-    height: 95vw;
+    height: page;
 }
 
 h2 {
