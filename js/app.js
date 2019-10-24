@@ -354,7 +354,6 @@ var renderLoser = function () {
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
-<<<<<<< HEAD
 var randomizeAllCards = function(){
   var uniqueRandomNumber = makeRandom(0,9);
   while(uniqueNumberArray.length < 5){
@@ -362,15 +361,6 @@ var randomizeAllCards = function(){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
       uniqueRandomNumber = makeRandom(0,9);
-=======
-var randomizeAllCards = function () {
-  var uniqueRandomNumber = makeRandom(0, 4);
-  while (uniqueNumberArray.length < 5) {
-    if (!uniqueNumberArray.includes(uniqueRandomNumber)) {
-      uniqueNumberArray.push(uniqueRandomNumber);
-    } else {
-      uniqueRandomNumber = makeRandom(0, 4);
->>>>>>> ab9bf804359ffa29402f60f62a8e1ef5555d5c3d
     }
   }
 };
@@ -566,11 +556,4 @@ randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
-
-//////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-//RENDER LEADERBOARD//////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////
-{/* <div id=topscores> list the top scores here</div> */}
-
 
