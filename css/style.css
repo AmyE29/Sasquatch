@@ -153,6 +153,7 @@ p {
     font-size: 2vw;
     border-bottom: black solid 0.2vw;
 }
+
 #aboutusLog:hover {
     animation: shake 300ms infinite;
     animation-timing-function: linear;   
@@ -172,3 +173,4 @@ p {
 50% { transform: rotate(-1deg); }
 100% { transform: rotate(1deg); }
 }
+

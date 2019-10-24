@@ -31,7 +31,7 @@ var uniqueCardsArray = [];
 var removePopupDiv = document.getElementById('card-popup');
 //FIRST CARD OBJECT (the first card to pop up will always get its information from this object)
 // var firstCardObject = [];
-var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril. CLICK TO CONTINUE...' ;
+var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril';
 //PLAYER SCORE (adds up the player's score throughout the game. to be stored into local storage later)
 var playerScore = 0;
 //WIN OBJECT (if player wins, the final card will get its information from this object)
@@ -62,7 +62,7 @@ function OptionsConst(opt1, opt2, opt3, opt4) {
 
 //#3 PLAYER NAME/SCORE CONSTRUCTOR////////////////////////////////////////////
 //(this creates 'people' with a name and a score property)
-function Player(name, score){
+function Player(name, score) {
   this.name = name;
   this.score = score;
 
@@ -83,17 +83,17 @@ function Player(name, score){
 
 //RANDOM NUMBER GENERATOR/////////////////////////////////////////////////////
 //(used to decide order of cards at start of game)
-var makeRandom = function(min, max) {
+var makeRandom = function (min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
-  return Math.floor(Math.random()*(max - min + 1)) + min;
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 //////////////////////////////////////////////////////////////////////////////
 //RENDER MAP//////////////////////////////////////////////////////////////////
 //(this creates the map, canvas, images, divs, etc. appends children)
-var renderMap = function() {
-//creates a div that will store the map in the middle of the 'main-screen'
+var renderMap = function () {
+  //creates a div that will store the map in the middle of the 'main-screen'
   var mapLocation = document.createElement('div');
   mapLocation.setAttribute('style', 'position: relative');
   mapLocation.setAttribute('id', 'mapCanvas');
@@ -144,8 +144,8 @@ var renderMap = function() {
 //////////////////////////////////////////////////////////////////////////////
 //UPDATE SCOREBOARD///////////////////////////////////////////////////////////
 //updates the scoreboard after a result card
-var updateScoreboard = function(){
-//updates distance from bigfoot value
+var updateScoreboard = function () {
+  //updates distance from bigfoot value
   var distUpdate = document.getElementById('distance-score');
   distUpdate.textContent = `DISTANCE FROM BIGFOOT: ${(playerLocation - bigfootLocation)} feet`;
   //updates player score
@@ -156,7 +156,7 @@ var updateScoreboard = function(){
 //////////////////////////////////////////////////////////////////////////////
 //CREATE CARD DIV/////////////////////////////////////////////////////////////
 //(this creates a card div, creates p tags, assigns p tags IDs(for event listener to tell which number user clicks) AND fills those p tags with the information from a card object)
-var renderCardDiv = function(){
+var renderCardDiv = function () {
   var cardAttach = document.getElementById('mapCanvas');
   var temp = uniqueCardsArray.shift();
   var cardDiv = document.createElement('div');
@@ -171,7 +171,7 @@ var renderCardDiv = function(){
   questionDiv.setAttribute('id', 'question-div');
   cardDiv.appendChild(questionDiv);
 
-  for (var i= 0; i < 4; i ++) {
+  for (var i = 0; i < 4; i++) {
     var newPTag = document.createElement('p');
     newPTag.setAttribute('class', 'ptag-options');
     questionDiv.appendChild(newPTag);
@@ -181,7 +181,7 @@ var renderCardDiv = function(){
 //////////////////////////////////////////////////////////////////////////////
 //CREATE FIRST CARD DIV///////////////////////////////////////////////////////
 //(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
-var renderFirstCardDiv = function(){
+var renderFirstCardDiv = function () {
   var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'firstCard');
@@ -195,14 +195,14 @@ var renderFirstCardDiv = function(){
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
 //(this creates the result card)(appends score from chosen answer)(appends corresponding resultStatement (global))
 //(needs the score from event listener)
-var renderResultCardDiv = function(){
+var renderResultCardDiv = function () {
   var removePopupDiv = document.getElementById('card-popup');
   removePopupDiv.remove();
   var cardAttach = document.getElementById('mapCanvas');
   var cardDiv = document.createElement('div');
   cardDiv.setAttribute('id', 'card-popup');
   cardAttach.appendChild(cardDiv);
-  var randomResult = makeRandom(0,3);
+  var randomResult = makeRandom(0, 3);
   var randomResultValue = resultValues[randomResult];
   //creates p tag and displays returnStatement from array
   var cardResultParagraph = document.createElement('p');
@@ -258,13 +258,14 @@ function movePlayer(playerScore){
 //STORING USER NAME AND SCORE IN LOCAL STORAGE////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 //this function grabs local storage, parses the array, reconstructs the players, stores the reconstructed players in winners, sorts the winners by score low to high, if more than 10 high scores it removes the lowest
-function grabLocalStorage(){
+function grabLocalStorage() {
   var grabData = localStorage.getItem('leaderboard');
   var dataParsed = JSON.parse(grabData);
-  for(var i = 0; i < dataParsed.length; i++){
+  for (var i = 0; i < dataParsed.length; i++) {
     var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
     winners.push(newPlaya);
   }
+
 //function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
   winners.sort((a,b) => {
     if(a.score > b.score){
@@ -273,7 +274,7 @@ function grabLocalStorage(){
       return -1;
     }
   });
-  while(winners.length > 10){
+  while (winners.length > 10) {
     winners.shift();
   }
 }
@@ -281,7 +282,7 @@ function grabLocalStorage(){
 //////////////////////////////////////////////////////////////////////////////
 //RENDER WINNER FUNCTION/////////////////////////////////////////////////////
 //(winner function removes/hides game canvas, and in its place, displays the winning newspaper image, play again button, and reveals the footer row again)
-var renderWinner = function(){
+var renderWinner = function () {
   //create player object
   var winningPlayer = new Player(userName[0], playerScore);
   winners.push(winningPlayer);
@@ -319,7 +320,7 @@ var renderWinner = function(){
 //////////////////////////////////////////////////////////////////////////////
 //RENDER LOSER FUNCTION/////////////////////////////////////////////////////
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
-var renderLoser = function(){
+var renderLoser = function () {
   //removes the game canvas so that we can display the player's loss
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
@@ -327,6 +328,7 @@ var renderLoser = function(){
   var gameOverTombstone = document.createElement('img');
   gameOverTombstone.setAttribute('id', 'tombstone-id');
   gameOverTombstone.setAttribute('src', 'images/tombstone.png');
+  gameOverTombstone.setAttribute('id', 'Game-Over');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(gameOverTombstone);
   //creates and appends a play button to the image
@@ -352,18 +354,18 @@ var renderLoser = function(){
 //(then the randomly picked number is stored)(the function runs again, a random number between 0 and 4, as long as the number is not the same as one before it picks that index.)
 //(it loops on untill all 5 cards are moved into unique array in a random order)
 var uniqueNumberArray = [];
-var randomizeAllCards = function(){
-  var uniqueRandomNumber = makeRandom(0,4);
-  while(uniqueNumberArray.length < 5){
-    if(!uniqueNumberArray.includes(uniqueRandomNumber)){
+var randomizeAllCards = function () {
+  var uniqueRandomNumber = makeRandom(0, 4);
+  while (uniqueNumberArray.length < 5) {
+    if (!uniqueNumberArray.includes(uniqueRandomNumber)) {
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
-      uniqueRandomNumber = makeRandom(0,4);
+      uniqueRandomNumber = makeRandom(0, 4);
     }
   }
 };
-function fillUniqueCardsArray(){
-  for(var i = 0; i < uniqueNumberArray.length; i++){
+function fillUniqueCardsArray() {
+  for (var i = 0; i < uniqueNumberArray.length; i++) {
     uniqueCardsArray.push(allCardsArray[uniqueNumberArray[i]]);
   }
 }
@@ -378,14 +380,14 @@ function fillUniqueCardsArray(){
 //we need these to "add" the event listener AFTER the element with the corresponding ID is created
 
 //#1
-function makeOnSubmitWork(){
+function makeOnSubmitWork() {
   var onSubmit = document.getElementById('user-form');
   if(onSubmit != undefined){
     onSubmit.addEventListener('submit', handleSubmit);
   }
 }
 //#2
-function makeClickFirstCardWork(){
+function makeClickFirstCardWork() {
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.addEventListener('click', handleFirstClick);
 }
@@ -396,22 +398,22 @@ function makeClickFirstCardWork(){
 //   theMap.addEventListener('click', handleMapClick);
 // }
 //#4
-function makeCardClickWork(){
+function makeCardClickWork() {
   var theCard = document.getElementById('question-div');
   theCard.addEventListener('click', handleCardClick);
 }
 //#5
-function makeResultClickWork(){
+function makeResultClickWork() {
   var theResult = document.getElementById('card-popup');
   theResult.addEventListener('click', handleResultClick);
 }
 //#1 SUBMIT BUTTON////////////////////////////////////////////////////////////
 //(when user presses start button, checks "if" a valid name is entered, removes starting fieldset/form, calls render map, delays (if possible), calls create FIRST card div function)
 
-function handleSubmit(){
+function handleSubmit() {
   event.preventDefault();
   //checks if the user entered something for their player's name. stores name in userName.
-  if(event.target.playerName.value === ''){
+  if (event.target.playerName.value === '') {
     alert('Invalid Entry. Please enter your player name.');
     return;
   } else {
@@ -469,7 +471,7 @@ function goodChoiceSound(){
 
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
-function handleFirstClick(){
+function handleFirstClick() {
   event.preventDefault();
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
@@ -490,7 +492,7 @@ var theMap = document.getElementById('mapCanvas');
 // }
 //#4 CLICK CARD ANSWER, RENDERS RESULT CARD///////////////////////////////////
 //(when user clicks an answer on the card div it stores value, removes card div, calls createResultCardDiv function)
-function handleCardClick(){
+function handleCardClick() {
   setTimeout(renderResultCardDiv, 500);
   var theCard = document.getElementById('question-div');
   theCard.removeEventListener('click', handleCardClick);
@@ -498,8 +500,8 @@ function handleCardClick(){
 }
 //#5 REMOVE RESULT CARD && SHOW MAP AGAIN/////////////////////////////////////
 //(when the user clicks on the result card div, it removes the result div)(map is visible again)(moves the characters based on the value chosen)(after move THEN it runs if statement)(if win/lose those functions run)(else: game continues on - back to event listener #3)
-function handleResultClick(){
-  setTimeout(function(){var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove();}, 500);
+function handleResultClick() {
+  setTimeout(function () { var removePopupDiv = document.getElementById('card-popup'); removePopupDiv.remove(); }, 500);
   var theResult = document.getElementById('card-popup');
   theResult.removeEventListener('click', handleResultClick);
   //map event listener is working again(after some time to let figures move and check if conditions)
@@ -510,6 +512,7 @@ function handleResultClick(){
   setTimeout(updateScoreboard, 500);
   setTimeout(winCondition, 5000);
   setTimeout(lossCondition, 5100);
+
   if(playerLocation < 5750 && bigfootLocation <= playerLocation){
     setTimeout(renderCardDiv, 4000);
     setTimeout(makeCardClickWork, 6500);
@@ -521,6 +524,7 @@ function moveCar(){
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
+
 function winCondition(){
   if(playerLocation >= 5750){
     var grabbingPlayer = document.getElementById('hiker');
@@ -536,6 +540,7 @@ function winCondition(){
 //////////////////////////////////////////////////////////////////////////////
 //LOSS CONDITION IF STATEMENT/////////////////////////////////////////////////
 //(this sets "if bigfoot location >= user location" then "run loser function")
+
 function lossCondition(){
   if(bigfootLocation >= playerLocation){
     eatenByBigfoot();
