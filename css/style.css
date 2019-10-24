@@ -137,3 +137,22 @@ p {
     font-size: 2vw;
     border-bottom: black solid 0.2vw;
 }
+#aboutusLog:hover {
+    animation: shake 300ms infinite;
+    animation-timing-function: linear;   
+}
+#leaderboardLog:hover {
+    animation: shake 300ms infinite;
+    animation-timing-function: linear;   
+}
+#logo:hover {
+    transform: scale(1.05);
+}
+#playnowButton:hover {
+    transform: scale(1.05);
+}
+@keyframes shake {
+0% { transform: rotate(1deg); }
+50% { transform: rotate(-1deg); }
+100% { transform: rotate(1deg); }
+}
