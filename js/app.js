@@ -259,14 +259,18 @@ function movePlayer(playerScore){
 //////////////////////////////////////////////////////////////////////////////
 //this function grabs local storage, parses the array, reconstructs the players, stores the reconstructed players in winners, sorts the winners by score low to high, if more than 10 high scores it removes the lowest
 function grabLocalStorage() {
-  var grabData = localStorage.getItem('leaderboard');
-  var dataParsed = JSON.parse(grabData);
-  for (var i = 0; i < dataParsed.length; i++) {
-    var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
-    winners.push(newPlaya);
+  if(localStorage.leaderboard === undefined){
+    return;
+  } else{
+    var grabData = localStorage.getItem('leaderboard');
+    var dataParsed = JSON.parse(grabData);
+    for (var i = 0; i < dataParsed.length; i++) {
+      var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
+      winners.push(newPlaya);
+    }
   }
 
-//function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
+  //function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
   winners.sort((a,b) => {
     if(a.score > b.score){
       return 1;
@@ -321,6 +325,14 @@ var renderWinner = function () {
 //RENDER LOSER FUNCTION/////////////////////////////////////////////////////
 //(loser function removes/hides canvas, and in its place, displays the losing tombstone image, play again button and reveals the footer row again)
 var renderLoser = function () {
+  //create player object
+  var winningPlayer = new Player(userName[0], playerScore);
+  winners.push(winningPlayer);
+  //retrieve the local storage so that we can ADD our winner to the array. Not replace the array.
+  grabLocalStorage();
+  // stringify and store in local storage
+  var storePlayers = JSON.stringify(winners);
+  localStorage.setItem('leaderboard', storePlayers);
   //removes the game canvas so that we can display the player's loss
   var gameCanvas = document.getElementById('mapCanvas');
   gameCanvas.remove();
@@ -432,8 +444,16 @@ function handleSubmit() {
 var music = document.getElementById('background-music');
 var carStart = document.getElementById('car-start');
 function stopBackgroundMusic(){
-  music.remove();
+  // for(var i = 10; i === 0; i--){
+    
+  for (let i=10; i>0; i--) {
+    setTimeout( function timer(){
+      music.volume = (0);
+    }, i*3000 );
+    // music.remove();
+  }
 }
+
 // function stopGameMusic(){
 //   startGameMusic();
 //   var gameMusic = document.getElementById('game-music');
