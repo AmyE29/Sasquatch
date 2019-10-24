@@ -76,7 +76,7 @@ header{
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
-    width: 19%;
+    width: 14%;
     text-align: right;
     margin-bottom: 1vw;
     margin-left: 28%;
@@ -87,8 +87,19 @@ header{
     display: inline-block;
     font-size: 3vw;
     text-emphasis: bold;
-    width: 19%;
+    width: 15%;
     margin-left: 4%;
     margin-bottom: 1vw;
     margin-right: 20%;
+
+}
+.ranking {
+    font-family: 'Press Start 2P', cursive;
+    display: inline-block;
+    font-size: 3vw;
+    text-emphasis: bold;
+    margin-left: 30.5%;
+}
+#ID10 {
+    margin-left: 27.5%;
 }
