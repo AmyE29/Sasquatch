@@ -11,7 +11,7 @@
 //(here is where all the words will be typed out for every card prompt statement, and every card's options)
 //example:
 var berriesCardPrompt = 'You come across some berries.  Do you...';
-var berriesOption1 = '1 . Eat them? They might give you more energy';
+var berriesOption1 = '1. Eat them? They might give you more energy';
 var berriesOption2 =  '2. Throw them at Big Foot to slow him down?';
 var berriesOption3 =  '3. Avoid them, they might be poisonous?';
 var berriesOption4 = '4. Collect them to make a pie later?';

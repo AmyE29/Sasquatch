@@ -86,6 +86,7 @@ main {
     left: 6vw;
 }
 #purple-car {
+    transition: transform 2s linear;
     height: 3vw;
     position: absolute;
     top: 30.5vw;

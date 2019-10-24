@@ -219,6 +219,11 @@ var renderResultCardDiv = function(){
   playerScore += randomResultValue;
   playerLocation += randomResultValue;
   bigfootLocation += 1000;
+  if(randomResultValue === 1600 || randomResultValue === 1150){
+    setTimeout(goodChoiceSound, 500);
+  } else {
+    badChoiceSound();
+  }
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -423,22 +428,45 @@ function handleSubmit(){
   }
 }
 var music = document.getElementById('background-music');
-var gameMusic = document.createElement('audio');
+var carStart = document.getElementById('car-start');
 function stopBackgroundMusic(){
   music.remove();
 }
-function stopGameMusic(){
-  gameMusic.remove();
+// function stopGameMusic(){
+//   startGameMusic();
+//   var gameMusic = document.getElementById('game-music');
+//   gameMusic.remove();
+// }
+// function startGameMusic(){
+//   var gameMusic = document.createElement('audio');
+//   gameMusic.setAttribute('autoplay', '');
+//   gameMusic.setAttribute('loop', '');
+//   gameMusic.setAttribute('src', 'Images/Sound Effect for game start.mp3');
+//   gameMusic.setAttribute('id', 'game-music');
+//   gameMusic.volume = 0.3;
+// }
+function startTheCar(){
+  var carStart = document.createElement('audio');
+  carStart.setAttribute('autoplay', '');
+  carStart.setAttribute('src', 'Images/carstart.mp3');
+  carStart.setAttribute('id', 'car-start');
 }
-function startGameMusic(){
-  var gameMusic = document.createElement('audio');
-  gameMusic.setAttribute('autoplay', '');
-  gameMusic.setAttribute('loop', '');
-  gameMusic.setAttribute('src', 'Images/Sound Effect for game start.mp3');
-  gameMusic.setAttribute('id', 'game-music');
-  gameMusic.volume = 0.4;
-  // autoplay loop src="Images/Game soundtrack.mp3" id="background-music"
+function eatenByBigfoot(){
+  var playerLose = document.createElement('audio');
+  playerLose.setAttribute('autoplay', '');
+  playerLose.setAttribute('src', 'Images/monster.mp3');
 }
+function badChoiceSound(){
+  var badChoice = document.createElement('audio');
+  badChoice.setAttribute('autoplay', '');
+  badChoice.setAttribute('src', 'Images/sadtrombone.mp3');
+}
+function goodChoiceSound(){
+  var goodChoice = document.createElement('audio');
+  goodChoice.setAttribute('autoplay', '');
+  goodChoice.setAttribute('src', 'Images/tada.mp3');
+}
+
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
 function handleFirstClick(){
@@ -446,7 +474,7 @@ function handleFirstClick(){
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
   stopBackgroundMusic();
-  setTimeout(startGameMusic, 1000);
+  setTimeout(gameMusic.volume = 0.25, 1000);
   setTimeout(renderCardDiv, 2000);
   setTimeout(makeCardClickWork, 2500);
   // makeMapClickWork();
@@ -487,13 +515,22 @@ function handleResultClick(){
     setTimeout(makeCardClickWork, 6500);
   }
 }
+function moveCar(){
+
+}
 //////////////////////////////////////////////////////////////////////////////
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
 function winCondition(){
   if(playerLocation >= 5750){
-    renderWinner();
-    stopGameMusic();
+    var grabbingPlayer = document.getElementById('hiker');
+    var grabCar = document.getElementById('purple-car');
+    startTheCar();
+    setTimeout(grabbingPlayer.remove(), 2000);
+    setTimeout(grabCar.setAttribute('style', 'transform: translate(3vw,0)'), 2000);
+    setTimeout(renderWinner, 4000);
+    setTimeout(gameMusic.volume = 0, 4000);
+    setTimeout(goodChoiceSound, 4200);
   }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -501,11 +538,15 @@ function winCondition(){
 //(this sets "if bigfoot location >= user location" then "run loser function")
 function lossCondition(){
   if(bigfootLocation >= playerLocation){
-    renderLoser();
-    stopGameMusic();
+    eatenByBigfoot();
+    setTimeout(renderLoser, 4000);
+    setTimeout(gameMusic.volume = 0, 4500);
+    setTimeout(badChoiceSound, 4200);
   }
 }
 
+const gameMusic = document.getElementById('game-music');
+gameMusic.volume = 0;
 randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
