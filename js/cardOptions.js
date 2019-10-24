@@ -77,7 +77,7 @@ var patriotChoices = new OptionsConst(patriotOptions1, patriotOptions2, patriotO
 
 
 
-// make 5 cards && store them in allCardsArray
+// make cards && store them in allCardsArray
 var berries = new Card('berries', berriesCardPrompt, berriesChoices);
 var snakes = new Card('snakes', snakesCardPrompt, snakesChoices);
 var tree = new Card('tree', treeCardPrompt, treeChoices);
