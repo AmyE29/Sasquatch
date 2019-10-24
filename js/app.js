@@ -369,7 +369,7 @@ var renderLoser = function () {
 var uniqueNumberArray = [];
 var randomizeAllCards = function(){
   var uniqueRandomNumber = makeRandom(0,9);
-  while(uniqueNumberArray.length < 5){
+  while(uniqueNumberArray.length < 10){
     if(!uniqueNumberArray.includes(uniqueRandomNumber)){
       uniqueNumberArray.push(uniqueRandomNumber);
     } else {
