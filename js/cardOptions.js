@@ -65,11 +65,11 @@ var gameOptions2 = '2. I choose to keep running, I\'m not gonna die today';
 var gameOptions3 = '3. Ignore the chainsaw, it\'s just an illusion.';
 var gameOptions4 = '4. Scream!!!!!';
 
-var patriotCardPrompt = 'You see a basket full of food. Do you?';
-var patriotOptions1 = '1. I\'m going to take a chance I\'m starving!';
-var patriotOptions2 = '2. Just keep running, you\'re about to die!';
-var patriotOptions3 = '3. Grab the basket and throw it behind you.';
-var patriotOptions4 = '4. life all about chances, lets play a game!';
+var patriotCardPrompt = 'You see a basket full of food. Do you ..';
+var patriotOptions1 = '1. Take a chance you\'re starving!';
+var patriotOptions2 = '2. Keep running, you\'re about to die!';
+var patriotOptions3 = '3. Grab the basket and throw it behind you?';
+var patriotOptions4 = '4. Life all about chances, let\'s play a game!';
 
 
 // make object functions using above options
