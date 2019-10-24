@@ -1,5 +1,5 @@
 //take local storage out so that they can be rendered on the screen
-grabLocalStorage()
+grabLocalStorage();
 
 
 //////////////////////////////////////////////////////////////////////////////
