@@ -112,13 +112,13 @@ var renderMap = function () {
   var bigfootImage = document.createElement('img');
   bigfootImage.setAttribute('id', 'bigfoot');
   bigfootImage.setAttribute('class', 'character');
-  bigfootImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/bigfoot.png');
+  bigfootImage.setAttribute('src', 'Images/bigfoot.png');
   cvs.appendChild(bigfootImage);
   //create player image
   var playerImage = document.createElement('img');
   playerImage.setAttribute('id', 'hiker');
   playerImage.setAttribute('class', 'character');
-  playerImage.setAttribute('src', 'https://raw.githubusercontent.com/kochsj/Team-Sasquatch/master/images/hiker.gif');
+  playerImage.setAttribute('src', 'Images/hiker.gif');
   cvs.appendChild(playerImage);
   //here we create a div that attaches to the bottom of the map (same width) and holds playerScore and distance from bigfoot
   var scoreboard = document.createElement('div');
@@ -224,21 +224,25 @@ var renderResultCardDiv = function () {
 //////////////////////////////////////////////////////////////////////////////
 //MOVING OUR FIGURES//////////////////////////////////////////////////////////
 //this uses translate(x-axis, y-axis) to move our characters south east across the screen
-function moveBigfoot(bigfootLocation) {
+var grabbingBigfoot = document.getElementById('bigfoot');
+function moveBigfoot(bigfootLocation){
   var grabbingBigfoot = document.getElementById('bigfoot');
-  if (bigfootLocation > playerLocation) {
+  // grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/155)}vw, ${(bigfootLocation*0.004)}vw);`);
+  if(bigfootLocation > playerLocation){
     bigfootLocation = playerLocation;
-    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation / 100)}vw, ${(bigfootLocation * 0.004)}vw);`);
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/145)}vw, ${(bigfootLocation/250)}vw);`);
   } else {
-    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation / 100)}vw, ${(bigfootLocation * 0.004)}vw);`);
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/155)}vw, ${(bigfootLocation*0.004)}vw);`);
   }
 }
-function movePlayer(playerScore) {
+var grabbingPlayer = document.getElementById('hiker');
+function movePlayer(playerScore){
   var grabbingPlayer = document.getElementById('hiker');
-  if (playerLocation > 5000) {
-    grabbingPlayer.setAttribute('style', 'transform: translate(50vw, 25vw);');
+  if(playerLocation > 5000){
+    grabbingPlayer.setAttribute('style', 'transform: translate(37.037vw, 20vw);');
+    // grabbingPlayer.setAttribute('style', `${movePlayer(5000)}`);
   } else {
-    grabbingPlayer.setAttribute('style', `transform: translate(${(playerScore / 100)}vw, ${(playerScore / 200)}vw);`);
+    grabbingPlayer.setAttribute('style', `transform: translate(${(playerScore/135)}vw, ${(playerScore/250)}vw);`);
   }
 }
 
@@ -289,8 +293,15 @@ var renderWinner = function () {
   mapAttach.appendChild(winningNewspaper);
   //creates and appends a play button to the image
   var playAgainButton = document.createElement('button');
-  winningNewspaper.appendChild(playAgainButton);
-  playAgainButton.textContent = 'PLAY AGAIN';
+  mapAttach.appendChild(playAgainButton);
+  var playAgainLink = document.createElement('a');
+  playAgainLink.setAttribute('href', 'index.html');
+  playAgainButton.appendChild(playAgainLink);
+  var playAgainButtonImg = document.createElement('img');
+  playAgainButtonImg.setAttribute('id', 'playnowButton');
+  playAgainButtonImg.setAttribute('src', 'Images/playnowButtion.png');
+  playAgainLink.appendChild(playAgainButtonImg);
+  // playAgainButton.textContent = 'PLAY AGAIN';
   //reveals the footer row again
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: block');
@@ -311,8 +322,15 @@ var renderLoser = function () {
   mapAttach.appendChild(gameOverTombstone);
   //creates and appends a play button to the image
   var playAgainButton = document.createElement('button');
-  gameOverTombstone.appendChild(playAgainButton);
-  playAgainButton.textContent = 'PLAY AGAIN';
+  mapAttach.appendChild(playAgainButton);
+  var playAgainLink = document.createElement('a');
+  playAgainLink.setAttribute('href', 'index.html');
+  playAgainButton.appendChild(playAgainLink);
+  var playAgainButtonImg = document.createElement('img');
+  playAgainButtonImg.setAttribute('id', 'playnowButton');
+  playAgainButtonImg.setAttribute('src', 'Images/playnowButtion.png');
+  playAgainLink.appendChild(playAgainButtonImg);
+  // playAgainButton.textContent = 'PLAY AGAIN';
   //reveals the footer row again
   var showFooter = document.getElementById('footerRow');
   showFooter.setAttribute('style', 'display: block');
@@ -395,13 +413,27 @@ function handleSubmit() {
     setTimeout(makeClickFirstCardWork, 4200);
   }
 }
-
+var music = document.getElementById('background-music');
+function stopMusic(){
+  music.remove();
+}
+function startGameMusic(){
+  var gameMusic = document.createElement('audio');
+  gameMusic.setAttribute('autoplay', '');
+  gameMusic.setAttribute('loop', '');
+  gameMusic.setAttribute('src', 'Images/Sound Effect for game start.mp3');
+  gameMusic.setAttribute('id', 'game-music');
+  gameMusic.volume = 0.4;
+  // autoplay loop src="Images/Game soundtrack.mp3" id="background-music"
+}
 //#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
 function handleFirstClick() {
   event.preventDefault();
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
+  stopMusic();
+  setTimeout(startGameMusic, 1000);
   setTimeout(renderCardDiv, 2000);
   setTimeout(makeCardClickWork, 2500);
   // makeMapClickWork();
