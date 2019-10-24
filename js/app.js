@@ -230,7 +230,9 @@ function moveBigfoot(bigfootLocation){
   // grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/155)}vw, ${(bigfootLocation*0.004)}vw);`);
   if(bigfootLocation > playerLocation){
     bigfootLocation = playerLocation;
-    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/145)}vw, ${(bigfootLocation/250)}vw);`);
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/140)}vw, ${(bigfootLocation/250)}vw);`);
+  }else if(playerScore === 400){
+    grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/200)}vw, ${(bigfootLocation*0.004)}vw);`);
   } else {
     grabbingBigfoot.setAttribute('style', `transform: translate(${(bigfootLocation/155)}vw, ${(bigfootLocation*0.004)}vw);`);
   }
@@ -238,7 +240,7 @@ function moveBigfoot(bigfootLocation){
 var grabbingPlayer = document.getElementById('hiker');
 function movePlayer(playerScore){
   var grabbingPlayer = document.getElementById('hiker');
-  if(playerLocation > 5000){
+  if(playerLocation > 5750){
     grabbingPlayer.setAttribute('style', 'transform: translate(37.037vw, 20vw);');
     // grabbingPlayer.setAttribute('style', `${movePlayer(5000)}`);
   } else {
@@ -258,6 +260,7 @@ function grabLocalStorage(){
     var newPlaya = new Player(dataParsed[i].name, dataParsed[i].score);
     winners.push(newPlaya);
   }
+//function that 1. sorts an array 2. loops through the array and returns the lowest then next lowest, etc 3. checks that for every a, there is no b that is smaller (that is how it decides) 4. while loop - after all the scores are sorted smallest to largest, if the array is longer than 10, the 1st in the array (smallest) is shifted off
   winners.sort((a,b) => {
     if(a.score > b.score){
       return 1;
@@ -293,6 +296,7 @@ var renderWinner = function(){
   mapAttach.appendChild(winningNewspaper);
   //creates and appends a play button to the image
   var playAgainButton = document.createElement('button');
+  playAgainButton.setAttribute('id', 'playAgain-id');
   mapAttach.appendChild(playAgainButton);
   var playAgainLink = document.createElement('a');
   playAgainLink.setAttribute('href', 'index.html');
@@ -316,11 +320,13 @@ var renderLoser = function(){
   gameCanvas.remove();
   //creates an image element that will hold the game-over tombstone, appends to main-screen
   var gameOverTombstone = document.createElement('img');
+  gameOverTombstone.setAttribute('id', 'tombstone-id');
   gameOverTombstone.setAttribute('src', 'images/tombstone.png');
   var mapAttach = document.getElementById('main-screen');
   mapAttach.appendChild(gameOverTombstone);
   //creates and appends a play button to the image
   var playAgainButton = document.createElement('button');
+  playAgainButton.setAttribute('id', 'playAgain-id');
   mapAttach.appendChild(playAgainButton);
   var playAgainLink = document.createElement('a');
   playAgainLink.setAttribute('href', 'index.html');
@@ -369,7 +375,9 @@ function fillUniqueCardsArray(){
 //#1
 function makeOnSubmitWork(){
   var onSubmit = document.getElementById('user-form');
-  onSubmit.addEventListener('submit', handleSubmit);
+  if(onSubmit != undefined){
+    onSubmit.addEventListener('submit', handleSubmit);
+  }
 }
 //#2
 function makeClickFirstCardWork(){
@@ -402,7 +410,9 @@ function handleSubmit(){
     alert('Invalid Entry. Please enter your player name.');
     return;
   } else {
-    userName.push(event.target.playerName.value);
+    var makeNameCaps = event.target.playerName.value;
+    var res = makeNameCaps.toUpperCase();
+    userName.push(res);
     //removes fieldset
     var fieldsetRemove = document.getElementById('user-form');
     fieldsetRemove.remove();
@@ -413,8 +423,12 @@ function handleSubmit(){
   }
 }
 var music = document.getElementById('background-music');
-function stopMusic(){
+var gameMusic = document.createElement('audio');
+function stopBackgroundMusic(){
   music.remove();
+}
+function stopGameMusic(){
+  gameMusic.remove();
 }
 function startGameMusic(){
   var gameMusic = document.createElement('audio');
@@ -431,7 +445,7 @@ function handleFirstClick(){
   event.preventDefault();
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
-  stopMusic();
+  stopBackgroundMusic();
   setTimeout(startGameMusic, 1000);
   setTimeout(renderCardDiv, 2000);
   setTimeout(makeCardClickWork, 2500);
@@ -468,7 +482,7 @@ function handleResultClick(){
   setTimeout(updateScoreboard, 500);
   setTimeout(winCondition, 5000);
   setTimeout(lossCondition, 5100);
-  if(playerLocation < 5000 && bigfootLocation <= playerLocation){
+  if(playerLocation < 5750 && bigfootLocation <= playerLocation){
     setTimeout(renderCardDiv, 4000);
     setTimeout(makeCardClickWork, 6500);
   }
@@ -477,8 +491,9 @@ function handleResultClick(){
 //WIN CONDITION IF STATEMENT//////////////////////////////////////////////////
 //(this sets "if user location = finishline location" then "run winner function")
 function winCondition(){
-  if(playerLocation >= 5000){
+  if(playerLocation >= 5750){
     renderWinner();
+    stopGameMusic();
   }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -487,6 +502,7 @@ function winCondition(){
 function lossCondition(){
   if(bigfootLocation >= playerLocation){
     renderLoser();
+    stopGameMusic();
   }
 }
 
@@ -499,4 +515,6 @@ setTimeout(makeOnSubmitWork, 2000);
 //////////////////////////////////////////////////////////////////////////////
 //RENDER LEADERBOARD//////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
+{/* <div id=topscores> list the top scores here</div> */}
+
 

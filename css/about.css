@@ -6,8 +6,10 @@
 font-family: 'Dokdo', cursive;
 } */
 body{
+    /* background: rgb(232,249,229);
+    background: linear-gradient(0deg, rgba(232,249,229,1) 0%, rgba(209,238,204,1) 35%, rgba(87,169,154,1) 100%); */
     background: rgb(232,249,229);
-    background: linear-gradient(0deg, rgba(232,249,229,1) 0%, rgba(209,238,204,1) 35%, rgba(87,169,154,1) 100%);
+    background: linear-gradient(0deg, rgba(232,249,229,1) 0%, rgba(209,238,204,1) 35%, rgba(87,169,154,1) 90%, rgb(11, 75, 62) 100%);
     margin-bottom: 3em;
     background-repeat: no-repeat;
     height: 88vw;
@@ -18,7 +20,7 @@ h2 {
     #d7eaf7;
     font-family: 'Dokdo', cursive;
 }
-div{
+.center {
     text-align: center;
 }
 .faces {
@@ -29,9 +31,6 @@ div{
     margin-left: 1em;
     margin-right:1em;
 }
-p {
-    text-align: center;
-}
 .about{
     display: inline-block;
     width: 35%;
@@ -39,19 +38,22 @@ p {
     #b4c7d9;
     margin-left: 1em;
     margin-right:1em;
+    text-align: center;
 }
 #topscores{
-    margin-top: 2em;
     height: 50em;
-
+    margin-top: 1vw;
+    padding-top: 2vw;
+    border-top: black solid 1vw;
 }
 #logo {
-    width: 50vw;
-    height: 15vw;
+    width: 40vw;
+    height: 12vw;
 }
 #leaderboard{
     width: 30vw;
     height: 5vw;
+    text-align: center;
 }
 header{
     text-align: center;
@@ -59,4 +61,28 @@ header{
 #abouttitle{
     width: 30vw;
     height: 5vw;
+}
+#logo:hover {
+    transform: scale(1.05);
+}
+.leaderPTag-score {
+    display: inline-block;
+    font-size: 3vw;
+    text-emphasis: bold;
+    width: 19%;
+    text-align: right;
+    /* margin-right: 2.5%; */
+    margin-bottom: 1vw;
+    background-color: grey;
+    margin-left: 30%;
+}
+.leaderPTag-name {
+    display: inline-block;
+    font-size: 3vw;
+    text-emphasis: bold;
+    width: 19%;
+    margin-left: 2%;
+    margin-bottom: 1vw;
+    background-color: grey;
+    margin-right: 20%;
 }
