@@ -198,6 +198,31 @@ var renderFirstCardDiv = function () {
   firstCardPromptParagraph.textContent = firstCard;
 };
 //////////////////////////////////////////////////////////////////////////////
+//CREATE WIN CARD DIV///////////////////////////////////////////////////////
+//(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
+var renderWinCardDiv = function () {
+  var cardAttach = document.getElementById('mapCanvas');
+  var cardDiv = document.createElement('div');
+  cardDiv.setAttribute('id', 'firstCard');
+  cardAttach.appendChild(cardDiv);
+  //   created prompt paragraph on card
+  var firstCardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(firstCardPromptParagraph);
+  firstCardPromptParagraph.textContent = winCard;
+};//////////////////////////////////////////////////////////////////////////////
+//CREATE LOSS CARD DIV///////////////////////////////////////////////////////
+//(almost same as above)(has a unique ID and unique event listener so that a click will just remove 1st card and WONT try to store a value from the card)(always calls the first card object)
+var renderLossCardDiv = function () {
+  var cardAttach = document.getElementById('mapCanvas');
+  var cardDiv = document.createElement('div');
+  cardDiv.setAttribute('id', 'firstCard');
+  cardAttach.appendChild(cardDiv);
+  //   created prompt paragraph on card
+  var firstCardPromptParagraph = document.createElement('p');
+  cardDiv.appendChild(firstCardPromptParagraph);
+  firstCardPromptParagraph.textContent = loseCard;
+};
+//////////////////////////////////////////////////////////////////////////////
 //CREATE RESULT CARD DIV/////////////////////////////////////////////////////
 //(this creates the result card)(appends score from chosen answer)(appends corresponding resultStatement (global))
 //(needs the score from event listener)
@@ -486,9 +511,31 @@ function goodChoiceSound(){
   goodChoice.setAttribute('src', 'Media/tada.mp3');
 }
 
-//#2 CLICK FIRST CARD, SHOWS MAP AGAIN////////////////////////////////////////
+//#2 CLICK FIRST CARD (AND WIN/LOSS CARD), SHOWS MAP AGAIN////////////////////////////////////////
 //(when user clicks the first card, it removes first card, shows map)
 function handleFirstClick() {
+  // afterFirstClick();
+  if(playerScore>750 && playerLocation>bigfootLocation){
+    handleWinLossClick();
+    var grabbingPlayer = document.getElementById('hiker');
+    var grabCar = document.getElementById('purple-car');
+    startTheCar();
+    setTimeout(grabbingPlayer.remove(), 1000);
+    setTimeout(grabCar.setAttribute('style', 'transform: translate(3vw,0)'), 2000);
+    setTimeout(renderWinner, 4000);
+    setTimeout(gameMusic.volume = 0, 4000);
+    setTimeout(goodChoiceSound, 4200);
+  } else if(bigfootLocation>=playerLocation) {
+    handleWinLossClick();
+    eatenByBigfoot();
+    setTimeout(renderLoser, 4000);
+    setTimeout(gameMusic.volume = 0, 4500);
+    setTimeout(badChoiceSound, 4200);
+  } else {
+    afterFirstClick();
+  }
+}
+function afterFirstClick(){
   event.preventDefault();
   var afterFirstCard = document.getElementById('firstCard');
   afterFirstCard.remove();
@@ -496,7 +543,12 @@ function handleFirstClick() {
   setTimeout(gameMusic.volume = 0.25, 1000);
   setTimeout(renderCardDiv, 2000);
   setTimeout(makeCardClickWork, 2500);
-  // makeMapClickWork();
+}
+
+function handleWinLossClick() {
+  event.preventDefault();
+  var afterFirstCard = document.getElementById('firstCard');
+  afterFirstCard.remove();
 }
 var theMap = document.getElementById('mapCanvas');
 //#3 CLICK MAP, SHOWS CARDS///////////////////////////////////////////////////
@@ -542,14 +594,8 @@ function handleResultClick() {
 
 function winCondition(){
   if(playerLocation >= 5750){
-    var grabbingPlayer = document.getElementById('hiker');
-    var grabCar = document.getElementById('purple-car');
-    startTheCar();
-    setTimeout(grabbingPlayer.remove(), 1000);
-    setTimeout(grabCar.setAttribute('style', 'transform: translate(3vw,0)'), 2000);
-    setTimeout(renderWinner, 4000);
-    setTimeout(gameMusic.volume = 0, 4000);
-    setTimeout(goodChoiceSound, 4200);
+    renderWinCardDiv();
+    makeClickFirstCardWork();
   }
 }
 //////////////////////////////////////////////////////////////////////////////
@@ -558,17 +604,14 @@ function winCondition(){
 
 function lossCondition(){
   if(bigfootLocation >= playerLocation){
-    eatenByBigfoot();
-    setTimeout(renderLoser, 4000);
-    setTimeout(gameMusic.volume = 0, 4500);
-    setTimeout(badChoiceSound, 4200);
+    renderLossCardDiv();
+    makeClickFirstCardWork();
   }
 }
-
 const gameMusic = document.getElementById('game-music');
 gameMusic.volume = 0;
+
 randomizeAllCards();
 setTimeout(fillUniqueCardsArray, 1000);
 //for some reason this is needed to make the submit event listener
 setTimeout(makeOnSubmitWork, 2000);
-

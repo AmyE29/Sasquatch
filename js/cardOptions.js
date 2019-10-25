@@ -12,7 +12,7 @@
 //example:
 var berriesCardPrompt = 'You come across some berries.  Do you...';
 
-var berriesOption1 = '1. Eat them? They might give you more energy';
+var berriesOption1 = '1. Eat them? They might give you more energy.';
 var berriesOption2 =  '2. Throw them at Big Foot to slow him down?';
 var berriesOption3 =  '3. Avoid them, they might be poisonous?';
 var berriesOption4 = '4. Collect them to make a pie later?';
@@ -20,7 +20,7 @@ var berriesOption4 = '4. Collect them to make a pie later?';
 var snakesCardPrompt = 'Oh no! Snakes on the trail.  Do you...';
 var snakesOption1 = '1. Run screaming in the other direction?';
 var snakesOption2 = '2. Go all Samuel L Jackson, and \'Get the #$@&%*! Snakes, off the #$@&%*! Trail!!\'" ?';
-var snakesOption3 = '3. Eat them? They might give you more energy';
+var snakesOption3 = '3. Eat them? They might give you more energy..';
 var snakesOption4 = '4. Train them to attack Big Foot?';
 
 var treeCardPrompt = 'You are blocked by a fallen tree.  Do you...';
@@ -41,7 +41,7 @@ var tripOption2 = '2. Rest a bit, and massage it?';
 var tripOption3 = '3. Rub some dirt on it?';
 var tripOption4 = '4. Lay down and cry?';
 
-var squirrelCardPrompt = 'You see a amourous squirrel. Do you...';
+var squirrelCardPrompt = 'You see an amourous squirrel. Do you...';
 var squirrelOption1 = '1. Scream?';
 var squirrelOption2 =  '2. Throw rocks at it?';
 var squirrelOption3 =  '3. Convince it to seduce Big Foot?';
@@ -53,23 +53,23 @@ var boulderOption2 =  '2. Go around it?';
 var boulderOption3 =  '3. Dig under it?';
 var boulderOption4 = '4. Stand on top of it and hope Big Foot can\'t reach you?';
 
-var safetyCardPrompt = 'You\'rerunnning down the trail and you see a couple. Do You?';
-var safetyOption1 = '1. Yell help, then trip them, hoping the beast stops for them!';
-var safetyOption2 = '2. Tell them to stop and turn around!';
-var safetyOption3 = '3. Play a game of chance roll the dice';
-var safetyOption4 = '4. Steal there bag as you run down the hill they won\'t be needing it.';
+var safetyCardPrompt = 'You\'re runnning down the trail and you see a happy couple. Do You...';
+var safetyOption1 = '1. Trip them, hoping the beast stops for them?';
+var safetyOption2 = '2. Tell them to stop and turn around?';
+var safetyOption3 = '3. Play a game of chance, roll the dice?';
+var safetyOption4 = '4. Steal their bag as you run down the hill? They won\'t be needing it..';
 
-var gameCardPrompt = 'You see a chainsaw stuck in a tree. Whats your next move?';
-var gameOptions1 = '1. I\'m getting the chainsaw';
-var gameOptions2 = '2. I choose to keep running, I\'m not gonna die today';
-var gameOptions3 = '3. Ignore the chainsaw, it\'s just an illusion.';
-var gameOptions4 = '4. Scream!!!!!';
+var gameCardPrompt = 'You see a chainsaw stuck in a tree. What\'s your next move?';
+var gameOptions1 = '1. Take the chainsaw for yourself?';
+var gameOptions2 = '2. Keep running? I\'m not gonna die today..';
+var gameOptions3 = '3. Ignore the chainsaw? It\'s just an illusion..';
+var gameOptions4 = '4. Scream?!';
 
 var patriotCardPrompt = 'You see a basket full of food. Do you?';
-var patriotOptions1 = '1. I\'m going to take a chance I\'m starving!';
-var patriotOptions2 = '2. Just keep running, you\'re about to die!';
-var patriotOptions3 = '3. Grab the basket and throw it behind you.';
-var patriotOptions4 = '4. Life all about chances, let\'s play a game!';
+var patriotOptions1 = '1. Take a chance? I\'m starving..';
+var patriotOptions2 = '2. Just keep running?';
+var patriotOptions3 = '3. Grab the basket and throw it behind you?';
+var patriotOptions4 = '4. Play a game? Life\'s all about chances..';
 
 // make object functions using above options
 var berriesChoices = new OptionsConst( berriesOption1, berriesOption2, berriesOption3, berriesOption4);
@@ -97,7 +97,7 @@ var patriot = new Card('patriot', patriotCardPrompt, patriotChoices);
 
 var firstCard = 'You\'ve just spent a beautiful afternoon hiking on Mt. Rainier, when all of a sudden you encounter Big Foot!  You need to make it back down the mountain and to your car before Big Foot reaches you.  Make the right choices and you will stay ahead of him,the wrong choices will put you in peril. CLICK TO CONTINUE...' ;
 
-var winCard = 'Congratulations You Won!  You out ran Big Foot.';
-var loseCard = 'Too bad.  You made a great effort, but Big Foot caught up with you.';
+var winCard = 'Congratulations You Won!  You out ran Big Foot! CLICK TO CONTINUE...';
+var loseCard = 'Too bad! You made a great effort, but Big Foot caught up with you. CLICK TO CONTINUE...';
 
 
